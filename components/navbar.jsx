@@ -40,7 +40,7 @@ const SearchBar = () => {
             <button className='border-y-2 border-l-2 border-orange px-2 pt-1 rounded-l'>
                 <Image src={searchIcon} alt='' />
             </button>
-            <input type="search" className='w-96 h-8 border-l-0 rounded-l-none border-2 border-orange rounded focus:w-[771px] transition-all ease-linear outline-none px-2 placeholder:text-orange font-extralight' placeholder='Search' />
+            <input type="search" className='w-96 h-8 border-l-0 rounded-l-none border-2 border-orange rounded focus:w-[600px] transition-all ease-linear outline-none px-2 placeholder:text-orange font-extralight' placeholder='Search' />
         </div>
     )
 }

@@ -81,7 +81,7 @@ function Thread({ data }) {
                       className="upvote-icon cursor-pointer hover:bg-gray p-1 rounded-l-md"
                     />
                   )}
-                  <span className="ml-0.5 mr-1 sm:mr-3 font-semibold">
+                  <span className="ml-0.5 mr-1 sm:mr-3 font-medium">
                     {data.total_likes}
                   </span>
                   <BsTriangle
@@ -90,13 +90,13 @@ function Thread({ data }) {
                   />
                 </div>
                 <div className="flex items-center ml-1 sm:ml-5 hover:bg-gray p-1 rounded-md cursor-pointer">
-                  <AnnotationIcon className="h-6 w-6" />
-                  <span className="ml-1.5 sm:text-sm font-semibold">
+                  <AnnotationIcon className="h-6 w-6 text-grayTxt font-medium" />
+                  <span className="ml-1.5 sm:text-sm font-medium">
                     {data.total_comments} comments
                   </span>
                 </div>
                 <div className="flex items-center ml-1 sm:ml-6 hover:bg-gray p-1 rounded-md cursor-pointer">
-                  <ShareIcon className="h-5 w-5" />
+                  <ShareIcon className="h-5 w-5"/>
                 </div>
               </div>
             </div>

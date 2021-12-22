@@ -6,13 +6,13 @@ import Navbar from '../components/Navbar'
 
 
 
+
 export default function Home() {
   return (
     <>
-    <Navbar />
-    <p className="text-orange">
-      hello world
-    </p>
+      <div className='text-orange'>
+        tes
+      </div>
     </>
   )
 }

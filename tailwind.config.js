@@ -1,10 +1,5 @@
 module.exports = {
-  mode: 'jit',
-  purge: [
-    './pages/**/*.{js, jsx}',
-    './components/**/*.{js, jsx}',
-  ],
-  content: [
+content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],

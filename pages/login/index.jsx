@@ -1,8 +1,36 @@
 import Navbar from "../../components/navbar"
 import Image from "next/image"
 import IlustrationImage from '../../img/undraw_conversation_re_c26v1.svg'
+import Link from "next/link"
+import { useState } from "react"
 
 const LoginForm = () =>{
+    const initialLoginState = {
+        username : '',
+        password : ''
+    }
+    const [getLogin, setLogin] = useState(initialLoginState)
+    const usernameHandle = e =>{
+        setLogin(getLogin =>(
+            {
+                ...getLogin,
+                username: e.target.value
+            }
+        ))
+    }
+
+    const passwordHandle = e =>{
+        setLogin(getLogin =>(
+            {
+                ...getLogin,
+                password: e.target.value
+            }
+        ))
+    }
+
+    const onLogin = () =>{
+        console.log('on maintanance')
+    }
     return (
         <div className="border-2 border-orange rounded-lg w-80 py-10 shadow flex flex-col">
             <h1 className="text-center text-orange font-medium text-3xl md:mb-10">LOGIN</h1>
@@ -10,10 +38,17 @@ const LoginForm = () =>{
                 <div></div>
                 <div className="px-10">
                     <form action="" className="flex flex-col justify-between">
-                            <input type="username" placeholder="username" className="px-2 my-3 h-10 rounded-md shadow outline-lightOrange" />
-                            <input type="password" placeholder="password" className="px-2 my-3 h-10 rounded-md shadow outline-lightOrange" />
-                            <button className="my-5 bg-orange text-white font-light rounded-md py-1 w-1/2 mx-14" >login</button>
+                            <input type="username" placeholder="username" className="px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={usernameHandle} />
+                            <input type="password" placeholder="password" className="px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={passwordHandle} />
+                            <button className="my-5 bg-orange text-white font-light rounded-md py-1 w-1/2 mx-14" onClick={onLogin}>login</button>
                     </form>
+                    <p className="font-light text-md">
+                        Doesn&apos;t have an account? <Link href={`register`}>
+                            <a className="text-orange">
+                                sign up
+                            </a>
+                        </Link>
+                    </p>
                 </div>
                 <div></div>
             </div>

@@ -78,7 +78,7 @@ function Thread({ data }) {
                   ) : (
                     <BsTriangle
                       size={28}
-                      className="upvote-icon cursor-pointer hover:bg-gray p-1 rounded-l-md"
+                      className="hover:text-white cursor-pointer hover:bg-green p-1 rounded-l-md"
                     />
                   )}
                   <span className="ml-0.5 mr-1 sm:mr-3 font-medium">
@@ -86,7 +86,7 @@ function Thread({ data }) {
                   </span>
                   <BsTriangle
                     size={28}
-                    className="downvote-icon cursor-pointer hover:bg-gray p-1 ml-1.5 border-r-2 rounded-l-md"
+                    className="rotate-18 hover:text-white cursor-pointer hover:bg-red p-1 ml-1.5 border-l-2 rounded-l-md"
                   />
                 </div>
                 <div className="flex items-center ml-1 sm:ml-5 hover:bg-gray p-1 rounded-md cursor-pointer">

@@ -32,7 +32,7 @@ const LoginForm = () =>{
         console.log('on maintanance')
     }
     return (
-        <div className="border-2 border-orange rounded-lg w-80 py-10 shadow flex flex-col">
+        <div className="border-2 border-orange rounded-lg w-96 py-10 shadow flex flex-col">
             <h1 className="text-center text-orange font-medium text-3xl md:mb-10">LOGIN</h1>
             <div className="flex flex-col justify-between">
                 <div></div>
@@ -42,7 +42,7 @@ const LoginForm = () =>{
                             <input type="password" placeholder="password" className="px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={passwordHandle} />
                             <button className="my-5 bg-orange text-white font-light rounded-md py-1 w-1/2 mx-14" onClick={onLogin}>login</button>
                     </form>
-                    <p className="font-light text-md">
+                    <p className="font-light text-sm md:text-base">
                         Doesn&apos;t have an account? <Link href={`register`}>
                             <a className="text-orange">
                                 sign up
@@ -71,9 +71,9 @@ const index = () => {
     return (
         <div className="flex flex-col">
             <Navbar />
-            <div className="flex flex-col md:flex-row px-10 py-10 md:px-52 md:py-32 justify-between">
+            <div className="flex flex-col md:flex-row px-16 py-10 md:px-52 md:py-32 justify-between">
                 {/* description */}
-                <div className="">
+                <div className="ml-16">
                     <Description/>
                 </div>
                 {/* loginform */}

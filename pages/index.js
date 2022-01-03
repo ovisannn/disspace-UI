@@ -16,7 +16,7 @@ export default function Home() {
             {/* thread */}
             <div className=''>
               <div className='flex flex-row justify-between'>
-                <div>
+                <div className='p-5'>
                   All threads
                 </div>
                 <div>

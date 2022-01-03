@@ -9,8 +9,6 @@ import Image from "next/image";
 function Thread({ data }) {
   return (
     <>
-      <div className="flex h-screen overflow-hidden">
-        <div className="bg-lightTeal p-3 flex flex-col w-screen h-screen overflow-y-scroll">
           {data?.map((data) => (
             <div key={data.id} className="bg-white shadow-md px-4 py-3 mt-3 rounded-md max-w-2xl cursor-pointer hover:drop-shadow-lg h-fit">
               <div className="flex justify-between">
@@ -101,8 +99,6 @@ function Thread({ data }) {
               </div>
             </div>
           ))}
-        </div>
-      </div>
     </>
   );
 }

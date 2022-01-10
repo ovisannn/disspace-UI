@@ -87,50 +87,46 @@ function upload() {
   };
 
   return (
-    // <div className="flex justify-center items-center">
-    //   <form onSubmit={handleSubmit}>
-    //     <div>
-    //       <label className="block mb-2">Upload Image</label>
-    //       <input
-    //         type="file"
-    //         className="mb-2"
-    //         onChange={(e) => {
-    //           setImage(e.target.files[0]);
-    //         }}
-    //       />
-    //     </div>
-    //     <div>
-    //       <label className="block">Title</label>
-    //       <input
-    //         className="border-2 border-orange px-1.5"
-    //         type="text"
-    //         name="title"
-    //         id="title"
-    //         placeholder="Thread's title..."
-    //         onChange={onChange}
-    //       />
-    //     </div>
-    //     <div>
-    //       <label className="block">Content</label>
-    //       <textarea
-    //         className="border-2 border-orange px-1.5"
-    //         name="content"
-    //         id="content"
-    //         placeholder="Start writing..."
-    //         onChange={onChange}
-    //       />
-    //     </div>
-    //     <button
-    //       className="bg-lightOrange hover:bg-orange text-white font-bold py-2 px-10 rounded-full"
-    //       onClick={handleSubmit}
-    //     >
-    //       Post
-    //     </button>
-    //   </form>
-    // </div>
-
-    <div className="h-screen grid grid-cols-12">
-      <h1>Testing</h1>
+    <div className="flex justify-center items-center">
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label className="block mb-2">Upload Image</label>
+          <input
+            type="file"
+            className="mb-2"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }}
+          />
+        </div>
+        <div>
+          <label className="block">Title</label>
+          <input
+            className="border-2 border-orange px-1.5"
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Thread's title..."
+            onChange={onChange}
+          />
+        </div>
+        <div>
+          <label className="block">Content</label>
+          <textarea
+            className="border-2 border-orange px-1.5"
+            name="content"
+            id="content"
+            placeholder="Start writing..."
+            onChange={onChange}
+          />
+        </div>
+        <button
+          className="bg-lightOrange hover:bg-orange text-white font-bold py-2 px-10 rounded-full"
+          onClick={handleSubmit}
+        >
+          Post
+        </button>
+      </form>
     </div>
   );
 }

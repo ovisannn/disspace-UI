@@ -5,6 +5,7 @@ import { BsCardImage } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import Select from "react-select";
 import axios from "axios";
+import Footer from "../../components/Footer";
 
 function upload() {
   const [state, setState] = useState({});
@@ -138,9 +139,22 @@ function upload() {
 
   return (
     <>
-      <form className="h-auto grid grid-cols-9" onSubmit={handleSubmit}>
+      <form
+        className="h-auto grid grid-cols-9 lg:mb-40 mb-4"
+        onSubmit={handleSubmit}
+      >
         <div className="col-span-9 md:col-span-5 md:col-start-2 px-6 lg:px-0">
-          <div className="md-flex items-center mt-5">
+          <div className="h-100 flex flex-row items-center border border-gray p-3 lg:mt-9 mt-5 rounded">
+            <img
+              src="https://randomuser.me/api/portraits/men/82.jpg"
+              alt="user-profile"
+              height={40}
+              width={40}
+              className="mr-4 rounded-full"
+            />
+            <div className="font-semibold">Gregory Van Gogh</div>
+          </div>
+          <div className="md-flex items-center mt-2">
             <div className="flex flex-col w-full">
               <input
                 type="text"
@@ -225,13 +239,16 @@ function upload() {
           </div>
           <button
             type="button"
-            className="bg-lightOrange hover:bg-orange text-white font-semibold py-2 rounded w-full mt-5"
+            className="bg-lightOrange hover:bg-orange text-white font-semibold py-2 rounded w-full mt-5 mb-1"
             onClick={handleSubmit}
           >
             Post
           </button>
         </div>
       </form>
+      <div>
+        <Footer />
+      </div>
     </>
   );
 }

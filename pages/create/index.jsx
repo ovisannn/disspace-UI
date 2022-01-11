@@ -15,7 +15,7 @@ function upload() {
     });
   };
 
-  const uploadImage =  (e) => {
+  const uploadImage = (e) => {
     if (image === undefined) return;
     const storageRef = ref(storage, `/images/${image?.name}`);
     const uploadTask = uploadBytesResumable(storageRef, image);
@@ -64,9 +64,9 @@ function upload() {
 
   useEffect(() => {
     if (url) {
-      handleCreate()
+      handleCreate();
     }
-  }, [url])
+  }, [url]);
 
   const handleCreate = async (e) => {
     try {
@@ -83,51 +83,52 @@ function upload() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    uploadImage()
+    uploadImage();
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label className="block mb-2">Upload Image</label>
-          <input
-            type="file"
-            className="mb-2"
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-            }}
-          />
+    <>
+      <form
+        className="h-auto grid grid-cols-9 text-center"
+        onSubmit={handleSubmit}
+      >
+        <div className="col-span-9 md:col-span-5 md:col-start-2 px-6 lg:px-0">
+          <div className="md-flex items-center mt-5">
+            <div className="flex flex-col w-full">
+              <input
+                type="text"
+                name="title"
+                id="title"
+                className="border border-gray outline-none rounded focus:border-orange text-black mt-4 py-1.5 px-4"
+                placeholder="Thread's title"
+                onChange={onChange}
+              />
+            </div>
+          </div>
+          <div>
+            <div className="w-full flex flex-col mt-6">
+              <div className="bg-orange w-full border-orange h-10 rounded-t"></div>
+              <textarea
+                name="content"
+                id="content"
+                className="border border-gray outline-none rounded-b focus:border-orange h-60 leading-none text-base py-3 px-4"
+                placeholder="Start writing!"
+                onChange={onChange}
+              ></textarea>
+            </div>
+          </div>
         </div>
-        <div>
-          <label className="block">Title</label>
-          <input
-            className="border-2 border-orange px-1.5"
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Thread's title..."
-            onChange={onChange}
-          />
+        <div className="col-span-9 lg:col-span-2 mx-6 mt-5">
+          <button
+            type="button"
+            className="bg-lightOrange hover:bg-orange text-white font-semibold py-2 rounded w-full"
+            onClick={handleSubmit}
+          >
+            Post
+          </button>
         </div>
-        <div>
-          <label className="block">Content</label>
-          <textarea
-            className="border-2 border-orange px-1.5"
-            name="content"
-            id="content"
-            placeholder="Start writing..."
-            onChange={onChange}
-          />
-        </div>
-        <button
-          className="bg-lightOrange hover:bg-orange text-white font-bold py-2 px-10 rounded-full"
-          onClick={handleSubmit}
-        >
-          Post
-        </button>
       </form>
-    </div>
+    </>
   );
 }
 

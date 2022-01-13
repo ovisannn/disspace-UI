@@ -10,21 +10,21 @@ function Thread({ data }) {
   return (
     <>
           {data?.map((data) => (
-            <div key={data.id} className="bg-white shadow-md px-4 py-3 mt-3 rounded-md max-w-2xl cursor-pointer hover:drop-shadow-lg h-fit">
+            <div key={data._id} className="bg-white shadow-md px-4 py-3 mt-3 rounded-md max-w-2xl cursor-pointer hover:drop-shadow-lg h-fit">
               <div className="flex justify-between">
                 <div className="flex items-center">
-                  <Image
+                  {/* <Image
                     className="rounded-full"
                     height={48}
                     width={48}
                     src={data.profile}
                     alt="user-profile"
-                  />
+                  /> */}
                   <div className="ml-3">
                     <div className="text-sm">
-                      <span className="font-semibold hover:underline">
+                      {/* <span className="font-semibold hover:underline">
                         {data.username}
-                      </span>
+                      </span> */}
                       <span>
                         <BsDot className="inline" size={16} color="gray" />
                       </span>
@@ -32,9 +32,9 @@ function Thread({ data }) {
                         Follow
                       </span>
                     </div>
-                    <div className="text-grayTxt font-medium text-xs">
+                    {/* <div className="text-grayTxt font-medium text-xs">
                       {data?.date}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className="flex cursor-pointer">
@@ -66,7 +66,7 @@ function Thread({ data }) {
                 </div>
               </div>
               <div className="flex items-center text-grayTxt text-xs mt-1.5">
-                <div className="flex items-center text-sm border rounded-md">
+                {/* <div className="flex items-center text-sm border rounded-md">
                   {data?.liked ? (
                     <BsTriangleFill
                       size={28}
@@ -86,12 +86,12 @@ function Thread({ data }) {
                     size={28}
                     className="rotate-18 hover:text-white cursor-pointer hover:bg-red p-1 ml-1.5 border-l-2 rounded-l-md"
                   />
-                </div>
+                </div> */}
                 <div className="flex items-center ml-1 sm:ml-5 hover:bg-gray p-1 rounded-md cursor-pointer">
                   <AnnotationIcon className="h-6 w-6 text-grayTxt font-medium" />
-                  <span className="ml-1.5 sm:text-sm font-medium">
+                  {/* <span className="ml-1.5 sm:text-sm font-medium">
                     {data.total_comments} comments
-                  </span>
+                  </span> */}
                 </div>
                 <div className="flex items-center ml-1 sm:ml-6 hover:bg-gray p-1 rounded-md cursor-pointer">
                   <ShareIcon className="h-5 w-5"/>

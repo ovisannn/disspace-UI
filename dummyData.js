@@ -73,7 +73,7 @@ exports.topUser =[
     },
     {
         full_name:"asd",
-        username:"@oasdas",
+        username:"@oasd4as",
         password: "op123",
         email:"ovi.sanjaya11@gmail.com",
         gender:"male",
@@ -85,7 +85,7 @@ exports.topUser =[
     },
     {
         full_name:"asd",
-        username:"@oasdas",
+        username:"@oas3das",
         password: "op123",
         email:"ovi.sanjaya11@gmail.com",
         gender:"male",
@@ -97,7 +97,7 @@ exports.topUser =[
     },
     {
         full_name:"asd",
-        username:"@oasdas",
+        username:"@oasd2as",
         password: "op123",
         email:"ovi.sanjaya11@gmail.com",
         gender:"male",
@@ -109,7 +109,7 @@ exports.topUser =[
     },
     {
         full_name:"asd",
-        username:"@oasdas",
+        username:"@oasd1as",
         password: "op123",
         email:"ovi.sanjaya11@gmail.com",
         profilePict : ['https://randomuser.me/api/portraits/lego/4.jpg'],

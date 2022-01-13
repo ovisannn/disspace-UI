@@ -5,8 +5,25 @@ import Navbar from '../components/navbar'
 import Thread from '../components/thread'
 import ThreadSelector from '../components/ThreadSelector'
 import Footer from '../components/Footer'
+import axios from 'axios'
+import { useState } from 'react'
 
 export default function Home() {
+  // console.log(EndPoints.getAllthreads)
+  const [getThreads, setThreads] = useState([])
+  axios.get('http://localhost:8080/v1/threads')
+  .then(function (response) {
+    // handle success
+    setThreads(response.data.data)
+    // console.log(response.data.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
   return (
     <div className='flex flex-col justify-center overflow-x-hidden'>
       <Navbar />
@@ -23,7 +40,7 @@ export default function Home() {
                   <ThreadSelector />
                 </div>
               </div>
-              <Thread data={threadData} />
+              <Thread data={getThreads} />
             </div>
             {/* side content */}
             <div className='flex flex-col items-center my-20 md:my-0'>

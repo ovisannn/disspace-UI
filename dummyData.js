@@ -254,3 +254,13 @@ exports.comments =[
         liked_by : [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,]
     }
 ]
+
+exports.currentUser = 
+{
+  _id: '62dc7d9ed23cd8284d011234',
+  full_name : 'Harry Von Potter',
+  username: 'harryvpotter1',
+  email: 'harry@gmail.com',
+  role: 3,
+  profile_pict: 'https://randomuser.me/api/portraits/men/82.jpg'
+}

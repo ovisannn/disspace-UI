@@ -6,6 +6,11 @@ import { IoMdClose } from "react-icons/io";
 import Select from "react-select";
 import axios from "axios";
 import Footer from "../../components/Footer";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+import { currentUser } from "../../dummyData";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 function upload() {
   const [state, setState] = useState({});
@@ -14,8 +19,42 @@ function upload() {
   const [catList, setCatList] = useState();
   const [cat, setCat] = useState("");
   const [preview, setPreview] = useState(null);
+  const [content, setContent] = useState("");
 
-  const ref = useRef();
+  const reference = useRef();
+
+  // Start Text Editor Customization
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      [{ align: ["", "center", "right", "justify"] }],
+      ["link", "image"],
+      ["clean"],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "align",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
+  // End Text Editor Customization
 
   useEffect(() => {
     axios.get("http://localhost:8080/v1/categories").then((response) => {
@@ -49,11 +88,12 @@ function upload() {
   };
 
   const clearImage = (e) => {
-    ref.current.value = "";
+    reference.current.value = "";
     setImage("");
     setPreview("");
   };
 
+  // Start Image Upload Logic
   const uploadImage = (e) => {
     if (image === undefined) return;
     const storageRef = ref(storage, `/images/${image?.name}`);
@@ -100,6 +140,7 @@ function upload() {
       }
     );
   };
+  // End Image Upload Logic
 
   useEffect(() => {
     if (url) {
@@ -111,9 +152,10 @@ function upload() {
     try {
       const response = await axios.post("http://localhost:8080/v1/threads", {
         title: state?.title,
-        content: state?.content,
+        content: content,
         image_url: url,
-        category: cat,
+        category_id: cat,
+        user_id: currentUser?._id,
       });
       console.log(response);
     } catch (error) {
@@ -146,13 +188,13 @@ function upload() {
         <div className="col-span-9 md:col-span-5 md:col-start-2 px-6 lg:px-0">
           <div className="h-100 flex flex-row items-center border border-gray p-3 lg:mt-9 mt-5 rounded">
             <img
-              src="https://randomuser.me/api/portraits/men/82.jpg"
+              src={currentUser?.profile_pict}
               alt="user-profile"
               height={40}
               width={40}
               className="mr-4 rounded-full"
             />
-            <div className="font-semibold">Gregory Van Gogh</div>
+            <div className="font-semibold">{currentUser?.full_name}</div>
           </div>
           <div className="md-flex items-center mt-2">
             <div className="flex flex-col w-full">
@@ -166,57 +208,63 @@ function upload() {
               />
             </div>
           </div>
+          <div className="border border-gray mt-5 rounded">
+            <div className="py-2 flex justify-center items-center">
+              <input
+                type="file"
+                name="upload"
+                id="upload"
+                onChange={onImageChange}
+                style={{ display: "none" }}
+                ref={reference}
+              />
+              <label
+                htmlFor="upload"
+                className="hover:bg-gray rounded-full p-2"
+              >
+                {" "}
+                <span>
+                  <BsCardImage
+                    size={22}
+                    color="gray"
+                    className="inline-block absolute"
+                  />
+                  <div className="inline-block ml-7 text-grayTxt text-opacity-80">
+                    Add Thread Cover
+                  </div>
+                </span>
+              </label>
+            </div>
+            {preview ? (
+              <div className="flex justify-center">
+                <IoMdClose
+                  color="white"
+                  size={28}
+                  className="absolute ml-32 -mt-3 bg-grayTxt hover:bg-black rounded-full p-1"
+                  onClick={clearImage}
+                />
+                <img
+                  src={preview}
+                  alt="preview"
+                  height={150}
+                  className="ml-3 mb-2 rounded w-60"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
           <div>
-            <div className="w-full flex flex-col mt-6">
+            <div className="w-full flex flex-col mt-5">
               <div className="bg-orange w-full border-orange h-10 rounded-t"></div>
               <div className="border border-gray rounded-b hover:border-orange">
-                <textarea
-                  name="content"
-                  id="content"
-                  className="border border-none outline-none w-full h-60 leading-none text-base py-3 px-4 resize-none"
+                <ReactQuill
+                  value={content}
+                  onChange={setContent}
+                  modules={modules}
+                  formats={formats}
                   placeholder="Start writing!"
-                  onChange={onChange}
-                ></textarea>
-                <div>
-                  <div className="ml-1.5 mb-1 w-10 h-10 hover:bg-gray rounded-full flex justify-center items-center">
-                    <input
-                      type="file"
-                      name="upload"
-                      id="upload"
-                      onChange={onImageChange}
-                      style={{ display: "none" }}
-                      ref={ref}
-                    />
-                    <label htmlFor="upload">
-                      {" "}
-                      <span>
-                        <BsCardImage
-                          size={22}
-                          color="gray"
-                          className="h-full"
-                        />
-                      </span>
-                    </label>
-                  </div>
-                  {preview ? (
-                    <div className="flex justify-center">
-                      <IoMdClose
-                        color="white"
-                        size={28}
-                        className="absolute ml-32 -mt-3 bg-grayTxt hover:bg-black rounded-full p-1"
-                        onClick={clearImage}
-                      />
-                      <img
-                        src={preview}
-                        alt="preview"
-                        height={150}
-                        className="ml-3 mb-2 rounded w-60"
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
+                />
               </div>
             </div>
           </div>

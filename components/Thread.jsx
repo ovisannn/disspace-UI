@@ -6,13 +6,13 @@ import {
 } from "@heroicons/react/outline";
 import Image from "next/image";
 
-function Thread({ data }) {
+function Thread({ data, limit }) {
   return (
     <>
-      {data?.map((data) => (
+      {data?.slice(0, limit != null ? limit : data?.length).map((data) => (
         <div
           key={data.id}
-          className="bg-white shadow-md px-4 py-3 mt-3 rounded-md max-w-2xl cursor-pointer hover:drop-shadow-lg h-fit"
+          className="bg-white shadow-md px-4 py-3 mt-3 rounded-md max-w-2xl cursor-pointer hover:drop-shadow-lg h-fit mx-3 md:mx-0"
         >
           <div className="flex justify-between">
             <div className="flex items-center">
@@ -63,7 +63,7 @@ function Thread({ data }) {
               <h3 className="font-bold text-md mb-1 text-center sm:text-left">
                 {data?.title}
               </h3>
-              <p className="font-medium text-sm text-md text-justify text-ellipsis">
+              <p className="font-medium text-sm text-md text-justify">
                 {data?.content}
               </p>
             </div>

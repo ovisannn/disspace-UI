@@ -16,13 +16,13 @@ function Thread({ data }) {
         >
           <div className="flex justify-between">
             <div className="flex items-center">
-              <Image
+              {/* <Image
                     className="rounded-full"
                     height={48}
                     width={48}
                     src={data?.profile}
                     alt="user-profile"
-                  />
+                  /> */}
               <div className="ml-3">
                 <div className="text-sm">
                   <span className="font-semibold hover:underline">
@@ -36,7 +36,7 @@ function Thread({ data }) {
                   </span>
                 </div>
                 <div className="text-grayTxt font-medium text-xs">
-                  {data?.date}
+                  {data?.created_at}
                 </div>
               </div>
             </div>
@@ -63,7 +63,7 @@ function Thread({ data }) {
               <h3 className="font-bold text-md mb-1 text-center sm:text-left">
                 {data?.title}
               </h3>
-              <p className="font-medium text-sm text-md text-justify">
+              <p className="font-medium text-sm text-md text-justify text-ellipsis">
                 {data?.content}
               </p>
             </div>

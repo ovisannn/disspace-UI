@@ -42,7 +42,7 @@ function Search() {
   console.log(comments?.data);
 
   return (
-    <div className="w-full max-w-xl px-2 py-16 sm:px-0">
+    <div className="w-full max-w-2xl px-2 py-16 sm:px-0">
       <Tab.Group>
         <Tab.List className="flex p-1 rounded-md space-x-1 shadow bg-white">
           {Object.keys(categories).map((category) => (

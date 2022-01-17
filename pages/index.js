@@ -10,7 +10,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [limit, setLimit] = useState(1)
-
+  
   return (
     <div className='flex flex-col justify-center overflow-x-hidden'>
       <Navbar />

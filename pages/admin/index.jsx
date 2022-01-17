@@ -32,7 +32,7 @@ function Admin() {
             {reports?.data?.map((data) => (
               <tr key={data?.target_id}>
                 <td>{data?.target_id}</td>
-                <td>{data?.target_type}</td>
+                <td>{data?.target_type == 1 ? "user" : data?.target_type == 2 ? "comment" : "thread"}</td>
                 <td>{data?.count}</td>
                 <td>{data?.description}</td>
               </tr>

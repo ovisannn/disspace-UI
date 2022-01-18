@@ -67,11 +67,6 @@ function Search() {
             ))}
           </Tab.List>
           {loading ? (
-            // <div>
-            //   <div
-            //     className="w-8 h-8 border-4 border-orange border-solid rounded-full animate-spin border-t-white"
-            //   ></div>
-            // </div>
             <div className="flex items-center justify-center mt-10 space-x-2 animate-bounce">
               <div className="w-5 h-5 bg-orange rounded-full"></div>
               <div className="w-5 h-5 bg-lightOrange rounded-full"></div>
@@ -80,7 +75,11 @@ function Search() {
           ) : (
             <Tab.Panels>
               <Tab.Panel>
-                <Thread data={threads?.data} limit={limit} />
+                {threads?.data
+                  ?.slice(0, limit != null ? limit : threadData?.length)
+                  .map((data) => (
+                    <Thread data={data} key={data?._id} limit={limit} />
+                  ))}
                 <div className="mx-3 md:mx-0">
                   {limit == threads?.data?.length ? (
                     ""

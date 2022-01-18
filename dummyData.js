@@ -166,7 +166,7 @@ exports.threadData = [
     profile: "https://randomuser.me/api/portraits/women/52.jpg",
     title:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at mi faucibus",
-    content: `<p><strong>Bold</strong></p><p><em>italic</em></p><p><u>underline</u></p><p><s>strikethrough</s></p><blockquote>quote</blockquote><ol><li>num list</li><li>num list</li><li>num list</li></ol><p><br></p><ul><li>bullet list</li><li>bullet list</li></ul><p><br></p><p class="ql-indent-1">indent 1</p><p class="ql-indent-2">indent 2</p><p><br></p><p><a href="http://localhost:3000/google.com" rel="noopener noreferrer" target="_blank">link</a></p>`,
+    content: `<p><em>italic</em></p><p><u>underline</u></p><p><s>strikethrough</s></p><blockquote>quote</blockquote><ol><li>num list</li><li>num list</li><li>num list</li></ol><p><br></p><ul><li>bullet list</li><li>bullet list</li></ul><p><br></p><p class="ql-indent-1">indent 1</p><p class="ql-indent-2">indent 2</p><p><br></p><p><a href="http://localhost:3000/google.com" rel="noopener noreferrer" target="_blank">link</a></p>`,
     num_votes: 365,
     num_comments: 44,
     image_url:
@@ -182,7 +182,7 @@ exports.threadData = [
     title:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at mi faucibus",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus erat nec ipsum mollis, quis laoreet orci lobortis. Vestibulum nec libero tincidunt, hendrerit magna sit amet, ullamcorper arcu. Sed et bibendum felis. Cras luctus laoreet dui id rutrum. Aliquam ut.",
+      "Lorem ipsum dolor",
     num_votes: 1222,
     num_comments: 176,
     liked: true,

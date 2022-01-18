@@ -26,8 +26,8 @@ export default function Home() {
             <div className="">
               <div className="flex flex-row justify-between">
                 <div className="p-5">All threads</div>
-                <div className="mr-1.5">
-                  <ThreadSelector />
+                <div className="mr-1.5 z-20">
+                  <ThreadSelector/>
                 </div>
               </div>
               <div className="max-w-2xl">

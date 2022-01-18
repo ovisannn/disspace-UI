@@ -7,16 +7,23 @@ import {
 } from "@heroicons/react/outline";
 import Image from "next/image";
 import moment from "moment";
+import Popover from "./PopOver";
+import CreateComment from "./CreateComment";
 
 function Thread({ data }) {
   const [active, setActive] = useState(false);
+  const [comment, setComment] = useState(false);
+
+  const toggleComment = () => {
+    setComment(!comment);
+  };
 
   const toggleActive = () => {
     setActive(true);
   };
 
   return (
-    <div className="bg-white shadow-md px-4 py-3 mt-3 mx-2 rounded cursor-pointer max-w-xl hover:drop-shadow-lg h-fit">
+    <div className="bg-white shadow-md px-4 py-3 mt-3 mx-2 md:mx-0 rounded cursor-pointer max-w-2xl hover:drop-shadow-lg h-fit">
       <div className="flex justify-between">
         <div className="flex items-center">
           {/* <Image
@@ -44,7 +51,7 @@ function Thread({ data }) {
           </div>
         </div>
         <div className="flex cursor-pointer">
-          <DotsHorizontalIcon className="h-5 w-5" />
+          <Popover />
         </div>
       </div>
       <div className="mt-2">
@@ -59,16 +66,18 @@ function Thread({ data }) {
         />
         {active ? (
           ""
-        ) : (
+        ) : data?.content?.length >= 100 ? (
           <div
-            className="text-lightBlue hover:text-blue mt-1 text-sm font-semibold"
+            className="text-lightBlue hover:text-blue mt-2 text-sm"
             onClick={toggleActive}
           >
             (read more)
           </div>
+        ) : (
+          ""
         )}
       </div>
-      <div className="flex items-center text-grayTxt text-xs mt-1.5">
+      <div className="flex items-center text-grayTxt text-xs mt-3">
         <div className="flex items-center text-sm border rounded-md">
           {data?.liked ? (
             <BsTriangleFill
@@ -90,7 +99,10 @@ function Thread({ data }) {
             className="rotate-18 hover:text-white cursor-pointer hover:bg-red p-1 ml-1.5 border-l-2 rounded-l-md"
           />
         </div>
-        <div className="flex items-center ml-1 sm:ml-5 hover:bg-gray p-1 rounded-md cursor-pointer">
+        <div
+          className="flex items-center ml-1 sm:ml-5 hover:bg-gray p-1 rounded-md cursor-pointer"
+          onClick={toggleComment}
+        >
           <AnnotationIcon className="h-6 w-6 text-grayTxt font-medium" />
           <span className="ml-1 sm:text-sm font-semibold">
             {data?.num_comments}
@@ -100,6 +112,16 @@ function Thread({ data }) {
           <ShareIcon className="h-5 w-5" />
         </div>
       </div>
+      {comment ? (
+        <div>
+          <hr className="w-full text-gray mt-4" />
+          <div className="mt-3">
+            <CreateComment />
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

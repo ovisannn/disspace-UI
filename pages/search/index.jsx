@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Tab } from "@headlessui/react";
 import axios from "axios";
 import Thread from "../../components/thread";
+import Layout from "../../components/layout";
+import Navbar from "../../components/navbar";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -44,7 +46,7 @@ function Search() {
 
   return (
     <div className="flex justify-center ">
-      <div className="w-full max-w-2xl px-2 py-16 sm:px-0">
+      <div className="w-full max-w-2xl px-2 py-8 sm:px-0">
         <Tab.Group>
           <Tab.List className="flex p-1 rounded-md space-x-1 shadow bg-white">
             {Object.keys(categories).map((category) => (
@@ -55,7 +57,7 @@ function Search() {
                     "w-full py-2 text-sm leading-5 font-semibold text-grayTxt rounded-lg",
                     "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
                     selected
-                      ? "bg-orange shadow shadow-white text-white"
+                      ? "bg-orange text-lightGray"
                       : "text-blue-100 hover:bg-gray"
                   )
                 }
@@ -80,12 +82,16 @@ function Search() {
               <Tab.Panel>
                 <Thread data={threads?.data} limit={limit} />
                 <div className="mx-3 md:mx-0">
-                  <button
-                    className="bg-lightOrange hover:bg-orange text-white font-bold py-2 px-4 rounded mt-4 w-full"
-                    onClick={() => setLimit(threads?.data?.length)}
-                  >
-                    View All
-                  </button>
+                  {limit == threads?.data?.length ? (
+                    ""
+                  ) : (
+                    <button
+                      className="bg-lightOrange hover:bg-orange text-white font-bold py-2 px-4 rounded mt-4 w-full"
+                      onClick={() => setLimit(threads?.data?.length)}
+                    >
+                      View All
+                    </button>
+                  )}
                 </div>
               </Tab.Panel>
               <Tab.Panel>Content 2</Tab.Panel>
@@ -99,3 +105,12 @@ function Search() {
 }
 
 export default Search;
+
+Search.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      <Navbar />
+      {page}
+    </Layout>
+  );
+};

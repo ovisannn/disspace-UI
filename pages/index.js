@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   momodList,
   dummyCategory,
@@ -11,10 +12,17 @@ import Navbar from "../components/navbar";
 import Thread from "../components/thread";
 import ThreadSelector from "../components/ThreadSelector";
 import Footer from "../components/Footer";
-import { useState } from "react";
+import axios from "axios";
 
 export default function Home() {
   const [limit, setLimit] = useState(4);
+  const [threadData, setThreadData] = useState();
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/v1/threads").then((response) => {
+      setThreadData(response?.data);
+    });
+  }, []);
 
   return (
     <div className="flex flex-col justify-center lg:items-center">
@@ -27,11 +35,11 @@ export default function Home() {
               <div className="flex flex-row justify-between">
                 <div className="p-5">All threads</div>
                 <div className="mr-1.5 z-20">
-                  <ThreadSelector/>
+                  <ThreadSelector />
                 </div>
               </div>
               <div className="max-w-2xl">
-                {threadData
+                {threadData?.data
                   ?.slice(0, limit != null ? limit : threadData?.length)
                   .map((data) => (
                     <Thread data={data} key={data?._id} limit={limit} />

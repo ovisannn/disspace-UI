@@ -5,8 +5,20 @@ import {
   ExclamationIcon,
   BellIcon,
 } from "@heroicons/react/outline";
+import axios from "axios";
 
-function PopOver() {
+function PopOver({targetId, targetType}) {
+  const handleReport = async (e) => {
+    try {
+      const response = await axios.put(`http://localhost:8080/v1/users/61e52fe1afc5e22427fab26d/reporting`, {
+        target_id: targetId,
+        target_type: targetType,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const moreMenus = [
     {
       name: "Subscribe",
@@ -23,7 +35,7 @@ function PopOver() {
     {
       name: "Report",
       description: "report the thread",
-      action: "",
+      action: handleReport,
       icon: IconReport,
     },
   ];
@@ -44,6 +56,7 @@ function PopOver() {
               <div
                 key={item.name}
                 className="flex items-center p-1.5 transition duration-150 ease-in-out rounded-lg hover:bg-gray gap-1"
+                onClick={item.action}
               >
                 <div className="flex items-center justify-center">
                   <item.icon aria-hidden="true" />

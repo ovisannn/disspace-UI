@@ -1,12 +1,26 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import axios from "axios";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-function CreateComment() {
+function CreateComment({threadId}) {
   const [text, setText] = useState("");
+
+  const handleComment = async (e) => {
+    try {
+      const response = await axios.post(`http://localhost:8080/v1/users/61e52fe1afc5e22427fab26d/comments`, {
+        thread_id: threadId,
+        text: text,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const modules = {
     toolbar: false,
   };
@@ -38,6 +52,7 @@ function CreateComment() {
         <button
           type="button"
           className="bg-lightTeal hover:bg-lightBlue text-white font-semibold md:px-10 px-4 rounded-full h-10 ml-3"
+          onClick={handleComment}
         >
           Add
         </button>

@@ -13,10 +13,28 @@ import CreateComment from "./CreateComment";
 function Thread({ data }) {
   const [active, setActive] = useState(false);
   const [comment, setComment] = useState(false);
+
+  const voterList = data?.votes;
+
+  const upvoteFilter = (item) =>
+    item.user_id === "redflavor12345" && item.status === 1;
+
+  const downvoteFilter = (item) =>
+    item.user_id === "redflavor12345" && item.status === -1;
+
+  const checkUpvote = voterList?.some(upvoteFilter);
+  const checkDownvote = voterList?.some(downvoteFilter);
+
+  if (checkUpvote === undefined && checkDownvote === undefined) {
+    checkUpvote = false;
+    checkDownvote = false;
+  }
+
   const [action, setAction] = useState({
-    upvote: false,
-    downvote: false,
+    upvote: checkUpvote,
+    downvote: checkDownvote,
   });
+
   const [status, setStatus] = useState(0);
   const [vote, setVote] = useState(data?.num_votes);
 
@@ -25,7 +43,13 @@ function Thread({ data }) {
       upvote: !action.upvote,
       downvote: false,
     });
-    action.upvote ? setVote(data?.num_votes) : setVote(data?.num_votes + 1);
+    action.upvote
+      ? checkUpvote
+        ? setVote(data?.num_votes - 1)
+        : setVote(data?.num_votes)
+      : checkUpvote
+      ? setVote(data?.num_votes)
+      : setVote(data?.num_votes + 1);
     action.upvote ? setStatus(0) : setStatus(1);
   };
 
@@ -34,7 +58,13 @@ function Thread({ data }) {
       downvote: !action.downvote,
       upvote: false,
     });
-    action.downvote ? setVote(data?.num_votes) : setVote(data?.num_votes - 1);
+    action.downvote
+    ? checkDownvote
+      ? setVote(data?.num_votes + 1)
+      : setVote(data?.num_votes)
+    : checkDownvote
+    ? setVote(data?.num_votes)
+    : setVote(data?.num_votes - 1);
     action.downvote ? setStatus(0) : setStatus(-1);
   };
 

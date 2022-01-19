@@ -4,6 +4,7 @@ import axios from "axios";
 import Thread from "../../components/thread";
 import Layout from "../../components/layout";
 import Navbar from "../../components/navbar";
+import UserResult from "../../components/UserResult";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -12,6 +13,7 @@ function classNames(...classes) {
 function Search() {
   const [threads, setThreads] = useState();
   const [comments, setComments] = useState();
+  const [users, setUsers] = useState();
   const [loading, setLoading] = useState(false);
   const [limit, setLimit] = useState(3);
 
@@ -19,12 +21,14 @@ function Search() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [threadsData, commentsData] = await Promise.all([
+        const [threadsData, commentsData, usersData] = await Promise.all([
           axios.get("http://localhost:8080/v1/threads/search"),
           axios.get("http://localhost:8080/v1/comments/search"),
+          axios.get("http://localhost:8080/v1/users/search"),
         ]);
         setThreads(threadsData?.data);
         setComments(commentsData?.data);
+        setUsers(usersData?.data);
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -93,8 +97,22 @@ function Search() {
                   )}
                 </div>
               </Tab.Panel>
-              <Tab.Panel>Content 2</Tab.Panel>
-              <Tab.Panel>Content 3</Tab.Panel>
+              <Tab.Panel>
+                {comments?.data
+                  ?.slice(0, limit != null ? limit : commentsData?.length)
+                  .map((comment) => (
+                    <>
+                      <div>{comment.text}</div>
+                    </>
+                  ))}
+              </Tab.Panel>
+              <Tab.Panel>
+                {users?.data
+                  ?.slice(0, limit != null ? limit : usersData?.length)
+                  .map((user) => (
+                    <UserResult data={user} />
+                  ))}
+              </Tab.Panel>
             </Tab.Panels>
           )}
         </Tab.Group>

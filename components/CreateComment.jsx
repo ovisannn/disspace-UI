@@ -52,7 +52,7 @@ function CreateComment({threadId}) {
         </div>
         <button
           type="button"
-          className="bg-lightTeal hover:bg-lightBlue text-white font-semibold md:px-10 px-4 rounded-full h-10 ml-3"
+          className="bg-lightTeal hover:bg-lightBlue text-white font-semibold md:px-10 px-4 rounded-full h-10 ml-3 mt-1"
           onClick={handleComment}
         >
           Add

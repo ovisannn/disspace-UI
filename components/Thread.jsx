@@ -8,6 +8,7 @@ import {
 import Image from "next/image";
 import moment from "moment";
 import Popover from "./PopOver";
+import Link from "next/link";
 import CreateComment from "./CreateComment";
 
 function Thread({ data }) {
@@ -59,12 +60,12 @@ function Thread({ data }) {
       upvote: false,
     });
     action.downvote
-    ? checkDownvote
-      ? setVote(data?.num_votes + 1)
-      : setVote(data?.num_votes)
-    : checkDownvote
-    ? setVote(data?.num_votes)
-    : setVote(data?.num_votes - 1);
+      ? checkDownvote
+        ? setVote(data?.num_votes + 1)
+        : setVote(data?.num_votes)
+      : checkDownvote
+      ? setVote(data?.num_votes)
+      : setVote(data?.num_votes - 1);
     action.downvote ? setStatus(0) : setStatus(-1);
   };
 
@@ -78,21 +79,23 @@ function Thread({ data }) {
 
   console.log(action);
   return (
-    <div className="bg-white shadow-md px-4 py-3 mt-3 mx-2 md:mx-0 rounded cursor-pointer max-w-xl hover:drop-shadow-lg h-fit">
+    <div className="bg-white shadow-md px-4 py-3 mt-3 mx-2 md:mx-0 rounded cursor-pointer max-w-2xl hover:drop-shadow-lg h-fit">
       <div className="flex justify-between">
         <div className="flex items-center">
-          {/* <Image
-                      className="rounded-full"
-                      height={48}
-                      width={48}
-                      src={data?.profile}
-                      alt="user-profile"
-                    /> */}
+          <img
+            className="rounded-full"
+            height={48}
+            width={48}
+            src={data?.user?.profile_pict}
+            alt="user-profile"
+          />
           <div className="ml-3">
             <div className="text-sm">
-              <span className="font-semibold hover:underline">
-                {data?.username}
-              </span>
+              <Link href={`user/${data?.user?.username}`}>
+                <a className="font-semibold hover:underline">
+                  {data?.user?.username}
+                </a>
+              </Link>
               <span>
                 <BsDot className="inline" size={16} color="gray" />
               </span>
@@ -110,12 +113,14 @@ function Thread({ data }) {
         </div>
       </div>
       <div className="mt-2">
-        <div className="font-bold text-lg mb-1">{data?.title}</div>
+        <Link href={`threads/${data?._id}`}>
+          <div className="font-bold text-lg mb-1 hover:underline">{data?.title}</div>
+        </Link>
         <div
           className={
             active
               ? "unreset h-fit font-medium text-sm"
-              : "unreset h-8 truncate font-medium text-sm"
+              : "unreset h-8 truncate font-medium text-sm w-1/2"
           }
           dangerouslySetInnerHTML={{ __html: data?.content }}
         />

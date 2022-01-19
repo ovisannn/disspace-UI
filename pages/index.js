@@ -17,14 +17,26 @@ import axios from "axios";
 export default function Home() {
   const [limit, setLimit] = useState(4);
   const [threadData, setThreadData] = useState();
+  const [catData, setCatData] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    axios.get("http://localhost:8080/v1/threads").then((response) => {
-      setThreadData(response?.data);
-      setLoading(false);
-    });
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [threadsData, categoriesData] = await Promise.all([
+          axios.get("http://localhost:8080/v1/threads"),
+          axios.get("http://localhost:8080/v1/categories"),
+        ]);
+        setThreadData(threadsData?.data);
+        setCatData(categoriesData?.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+      }
+    };
+    fetchData();
   }, []);
 
   return (
@@ -73,7 +85,7 @@ export default function Home() {
                   <LeaderBoards topUsers={topUser} />
                 </div>
                 <div className="py-8">
-                  <CategoryList categories={categoryList} />
+                  <CategoryList categories={catData?.data} />
                 </div>
               </div>
             </div>

@@ -16,6 +16,7 @@ function CreateComment({threadId}) {
         text: text,
       });
       console.log(response);
+      setText("")
     } catch (error) {
       console.log(error);
     }

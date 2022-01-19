@@ -13,40 +13,29 @@ import CreateComment from "./CreateComment";
 function Thread({ data }) {
   const [active, setActive] = useState(false);
   const [comment, setComment] = useState(false);
-  const [status, setStatus] = useState({
+  const [action, setAction] = useState({
     upvote: false,
     downvote: false,
-    status: 0,
   });
-
-  const upvote = () => {
-    setStatus({
-      upvote: !status.upvote,
-      status: status.upvote ? 0 : 1,
-    });
-  };
-
-  const downvote = () => {
-    setStatus({
-      downvote: !status.downvote,
-      status: status.downvote ? 0 : -1,
-    });
-  };
+  const [status, setStatus] = useState(0);
+  const [vote, setVote] = useState(data?.num_votes);
 
   const handleUpvote = () => {
-    if (status.upvote) {
-      upvote();
-      downvote();
-    }
-    upvote();
+    setAction({
+      upvote: !action.upvote,
+      downvote: false,
+    });
+    action.upvote ? setVote(data?.num_votes) : setVote(data?.num_votes + 1);
+    action.upvote ? setStatus(0) : setStatus(1);
   };
 
   const handleDownvote = () => {
-    if (status.downvote) {
-      downvote();
-      upvote();
-    }
-    downvote();
+    setAction({
+      downvote: !action.downvote,
+      upvote: false,
+    });
+    action.downvote ? setVote(data?.num_votes) : setVote(data?.num_votes - 1);
+    action.downvote ? setStatus(0) : setStatus(-1);
   };
 
   const toggleComment = () => {
@@ -57,7 +46,7 @@ function Thread({ data }) {
     setActive(true);
   };
 
-  console.log(status)
+  console.log(action);
   return (
     <div className="bg-white shadow-md px-4 py-3 mt-3 mx-2 md:mx-0 rounded cursor-pointer max-w-xl hover:drop-shadow-lg h-fit">
       <div className="flex justify-between">
@@ -115,7 +104,7 @@ function Thread({ data }) {
       </div>
       <div className="flex items-center text-grayTxt text-xs mt-3">
         <div className="flex items-center text-sm border rounded-md">
-          {status.upvote ? (
+          {action.upvote ? (
             <BsTriangleFill
               size={28}
               className="cursor-pointer bg-gray p-1 rounded-l-md"
@@ -129,10 +118,8 @@ function Thread({ data }) {
               onClick={handleUpvote}
             />
           )}
-          <span className="ml-1.5 mr-1 sm:mr-3 font-semibold">
-            {data?.num_votes}
-          </span>
-          {status.downvote ? (
+          <span className="ml-1.5 mr-1 sm:mr-3 font-semibold">{vote}</span>
+          {action.downvote ? (
             <BsTriangleFill
               size={28}
               className="cursor-pointer rotate-180 bg-gray p-1 rounded-l-md"

@@ -13,20 +13,39 @@ import Thread from "../components/thread";
 import ThreadSelector from "../components/ThreadSelector";
 import Footer from "../components/Footer";
 import axios from "axios";
+import { GetCategoriesAPI, GetThreadAPI } from "./api/Helpers";
+
+const option = [
+  { name: "recent", value: "created_at" },
+  { name: "most upvote", value: "num_votes" },
+  { name: "most commented", value: "num_comments" },
+];
 
 export default function Home() {
   const [limit, setLimit] = useState(4);
   const [threadData, setThreadData] = useState();
   const [catData, setCatData] = useState();
   const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState(option[0]);
+  // const [sortBy, setSortBy] = useState("");
 
+  console.log(selected.value);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const [threadsData, categoriesData] = await Promise.all([
-          axios.get("http://localhost:8080/v1/threads"),
-          axios.get("http://localhost:8080/v1/categories"),
+          axios({
+            method: "get",
+            url: GetThreadAPI(),
+            params: {
+              sort: selected.value,
+            },
+          }),
+          axios({
+            method: "get",
+            url: GetCategoriesAPI(),
+          }),
         ]);
         setThreadData(threadsData?.data);
         setCatData(categoriesData?.data);
@@ -37,7 +56,12 @@ export default function Home() {
       }
     };
     fetchData();
-  }, []);
+  }, [selected]);
+
+  // // Callback function
+  // const childCallBack = ({ value }) => {
+  //   console.log(value);
+  // };
 
   return (
     <div className="flex flex-col justify-center lg:items-center">
@@ -56,8 +80,12 @@ export default function Home() {
               <div className="">
                 <div className="flex flex-row justify-between">
                   <div className="p-5">All threads</div>
-                  <div className="z-20">
-                    <ThreadSelector />
+                  <div className="z-20 mt-1">
+                    <ThreadSelector
+                      option={option}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
                   </div>
                 </div>
                 <div className="max-w-2xl">

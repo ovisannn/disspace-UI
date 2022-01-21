@@ -3,20 +3,27 @@ import Image from "next/image";
 import axios from "axios";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+import { CreateCommentAPI } from "../pages/api/Helpers";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-function CreateComment({threadId}) {
+function CreateComment({ threadId }) {
   const [text, setText] = useState("");
+
+  const id = "user123566666"
 
   const handleComment = async (e) => {
     try {
-      const response = await axios.post(`http://localhost:8080/v1/users/61e52fe1afc5e22427fab26d/comments`, {
-        thread_id: threadId,
-        text: text,
+      const response = await axios({
+        method: "post",
+        url: CreateCommentAPI(id),
+        data: {
+          thread_id: threadId,
+          text: text,
+        }
       });
       console.log(response);
-      setText("")
+      setText("");
     } catch (error) {
       console.log(error);
     }

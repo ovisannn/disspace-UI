@@ -6,13 +6,19 @@ import {
   BellIcon,
 } from "@heroicons/react/outline";
 import axios from "axios";
+import { ReportTargetAPI } from "../pages/api/Helpers";
 
-function PopOver({targetId, targetType}) {
+function PopOver({ targetId, targetType }) {
+  var username = "nononoluv"
   const handleReport = async (e) => {
     try {
-      const response = await axios.put(`http://localhost:8080/v1/users/61e52fe1afc5e22427fab26d/reporting`, {
-        target_id: targetId,
-        target_type: targetType,
+      const response = await axios({
+        method: "post",
+        url: ReportTargetAPI(username),
+        data: {
+          target_id: targetId,
+          target_type: targetType,
+        },
       });
       console.log(response);
     } catch (error) {

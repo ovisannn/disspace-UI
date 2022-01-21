@@ -9,6 +9,7 @@ import Footer from "../../components/Footer";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { currentUser } from "../../dummyData";
+import { GetCategoriesAPI } from "../api/Helpers";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -57,7 +58,10 @@ function upload() {
   // End Text Editor Customization
 
   useEffect(() => {
-    axios.get("http://localhost:8080/v1/categories").then((response) => {
+    axios({
+      method: "get",
+      url: GetCategoriesAPI(),
+    }).then((response) => {
       setCatList(response?.data);
     });
   }, []);

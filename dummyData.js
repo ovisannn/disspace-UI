@@ -86,7 +86,7 @@ exports.topUser = [
   },
   {
     full_name: "asd",
-    username: "@oasdas",
+    username: "@hero",
     password: "op123",
     email: "ovi.sanjaya11@gmail.com",
     gender: "male",
@@ -98,7 +98,7 @@ exports.topUser = [
   },
   {
     full_name: "asd",
-    username: "@oasdas",
+    username: "@shiroe",
     password: "op123",
     email: "ovi.sanjaya11@gmail.com",
     gender: "male",
@@ -110,7 +110,7 @@ exports.topUser = [
   },
   {
     full_name: "asd",
-    username: "@oasdas",
+    username: "@nyanta",
     password: "op123",
     email: "ovi.sanjaya11@gmail.com",
     profilePict: ["https://randomuser.me/api/portraits/lego/4.jpg"],

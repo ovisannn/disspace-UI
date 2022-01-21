@@ -5,6 +5,12 @@ import Thread from "../../components/thread";
 import Layout from "../../components/layout";
 import Navbar from "../../components/navbar";
 import UserResult from "../../components/UserResult";
+import {
+  SearchCommentAPI,
+  SearchThreadAPI,
+  SearchUserAPI,
+} from "../api/Helpers";
+import { useRouter } from "next/router";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -17,14 +23,36 @@ function Search() {
   const [loading, setLoading] = useState(false);
   const [limit, setLimit] = useState(3);
 
+  const router = useRouter();
+  const { q } = router.query;
+
+  console.log(q);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
         const [threadsData, commentsData, usersData] = await Promise.all([
-          axios.get("http://localhost:8080/v1/threads/search"),
-          axios.get("http://localhost:8080/v1/comments/search"),
-          axios.get("http://localhost:8080/v1/users/search"),
+          axios({
+            method: "get",
+            url: SearchThreadAPI(),
+            params: {
+              q: q,
+            },
+          }),
+          axios({
+            method: "get",
+            url: SearchCommentAPI(),
+            params: {
+              q: q,
+            },
+          }),
+          axios({
+            method: "get",
+            url: SearchUserAPI(),
+            params: {
+              q: q,
+            },
+          }),
         ]);
         setThreads(threadsData?.data);
         setComments(commentsData?.data);
@@ -36,17 +64,13 @@ function Search() {
       }
     };
     fetchData();
-  }, []);
+  }, [q]);
 
   let [categories] = useState({
     Threads: threads,
     Comments: comments,
-    Users: [],
+    Users: users,
   });
-
-  console.log(loading ? "lagi loading" : "selesai");
-  console.log(threads?.data);
-  console.log(comments?.data);
 
   return (
     <div className="flex justify-center ">

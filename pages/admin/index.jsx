@@ -18,7 +18,6 @@ function Admin() {
     });
   }, []);
 
-  console.log(reports?.data);
   return (
     <div className="flex justify-center">
       {loading ? (
@@ -56,18 +55,18 @@ function Admin() {
                       data?.target_id
                     }`}
                   >
-                    <button class="bg-transparent hover:bg-lightBlue text-lightTeal font-semibold hover:text-white py-1.5 px-3 border border-lightBlue hover:border-transparent rounded">
+                    <button className="bg-transparent hover:bg-lightBlue text-lightTeal font-semibold hover:text-white py-1.5 px-3 border border-lightBlue hover:border-transparent rounded">
                       View Details
                     </button>
                   </Link>
                 </td>
                 <td className="pr-2">
                   {data?.target_type == 1 ? (
-                    <button class="bg-transparent hover:bg-darkRed text-red font-semibold hover:text-white border w-20 h-10 border-red hover:border-transparent rounded">
+                    <button className="bg-transparent hover:bg-darkRed text-red font-semibold hover:text-white border w-20 h-10 border-red hover:border-transparent rounded">
                       Ban
                     </button>
                   ) : (
-                    <button class="bg-transparent hover:bg-darkRed text-red font-semibold hover:text-white border w-20 h-10 border-red hover:border-transparent rounded">
+                    <button className="bg-transparent hover:bg-darkRed text-red font-semibold hover:text-white border w-20 h-10 border-red hover:border-transparent rounded">
                       Delete
                     </button>
                   )}

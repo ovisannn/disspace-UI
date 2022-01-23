@@ -9,11 +9,11 @@ import axios from "axios";
 import { ReportTargetAPI } from "../pages/api/Helpers";
 
 function PopOver({ targetId, targetType }) {
-  var username = "nononoluv"
+  var username = "61bb011b631b46d08adc16ec"
   const handleReport = async (e) => {
     try {
       const response = await axios({
-        method: "post",
+        method: "put",
         url: ReportTargetAPI(username),
         data: {
           target_id: targetId,

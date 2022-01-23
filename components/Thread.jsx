@@ -1,34 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsDot, BsTriangle, BsTriangleFill } from "react-icons/bs";
-import {
-  AnnotationIcon,
-  ShareIcon,
-  DotsHorizontalIcon,
-} from "@heroicons/react/outline";
+import { AnnotationIcon, ShareIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import moment from "moment";
-import Popover from "./PopOver";
+import PopOver from "./PopOver";
 import Link from "next/link";
 import CreateComment from "./CreateComment";
+import { PutVoteAPI } from "../pages/api/Helpers";
+import axios from "axios";
 
 function Thread({ data }) {
   const [active, setActive] = useState(false);
   const [comment, setComment] = useState(false);
 
   const voterList = data?.votes;
+  const votersData = voterList?.find(
+    (item) => item.username === "redflavor12345"
+  );
 
-  const upvoteFilter = (item) =>
-    item.user_id === "redflavor12345" && item.status === 1;
+  const checkUpvote = false;
+  const checkDownvote = false;
 
-  const downvoteFilter = (item) =>
-    item.user_id === "redflavor12345" && item.status === -1;
-
-  const checkUpvote = voterList?.some(upvoteFilter);
-  const checkDownvote = voterList?.some(downvoteFilter);
-
-  if (checkUpvote === undefined && checkDownvote === undefined) {
-    checkUpvote = false;
-    checkDownvote = false;
+  if (votersData?.status === 1) {
+    checkUpvote = true;
+  } else if (votersData?.status === -1) {
+    checkDownvote = true;
   }
 
   const [action, setAction] = useState({
@@ -36,8 +32,24 @@ function Thread({ data }) {
     downvote: checkDownvote,
   });
 
-  const [status, setStatus] = useState(0);
   const [vote, setVote] = useState(data?.num_votes);
+
+  const username = "redflavor12345";
+
+  const handleVote = async (value) => {
+    try {
+      const response = await axios({
+        method: "put",
+        url: PutVoteAPI(username, data?._id),
+        data: {
+          status: value,
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleUpvote = () => {
     setAction({
@@ -47,11 +59,15 @@ function Thread({ data }) {
     action.upvote
       ? checkUpvote
         ? setVote(data?.num_votes - 1)
+        : checkDownvote
+        ? setVote(data?.num_votes + 1)
         : setVote(data?.num_votes)
       : checkUpvote
       ? setVote(data?.num_votes)
+      : checkDownvote
+      ? setVote(data?.num_votes + 2)
       : setVote(data?.num_votes + 1);
-    action.upvote ? setStatus(0) : setStatus(1);
+    action.upvote ? handleVote(0) : handleVote(1);
   };
 
   const handleDownvote = () => {
@@ -62,11 +78,15 @@ function Thread({ data }) {
     action.downvote
       ? checkDownvote
         ? setVote(data?.num_votes + 1)
+        : checkUpvote
+        ? setVote(data?.num_votes - 1)
         : setVote(data?.num_votes)
       : checkDownvote
       ? setVote(data?.num_votes)
+      : checkUpvote
+      ? setVote(data?.num_votes - 2)
       : setVote(data?.num_votes - 1);
-    action.downvote ? setStatus(0) : setStatus(-1);
+    action.downvote ? handleVote(0) : handleVote(-1);
   };
 
   const toggleComment = () => {
@@ -77,7 +97,6 @@ function Thread({ data }) {
     setActive(true);
   };
 
-  console.log(action);
   return (
     <div className="bg-white shadow-md px-4 py-3 mt-3 mx-2 md:mx-0 rounded cursor-pointer max-w-2xl hover:drop-shadow-lg h-fit">
       <div className="flex justify-between">
@@ -109,12 +128,14 @@ function Thread({ data }) {
           </div>
         </div>
         <div className="flex cursor-pointer">
-          <Popover targetId={data?._id} targetType={3} />
+          <PopOver targetId={data?._id} targetType={3} />
         </div>
       </div>
       <div className="mt-2">
         <Link href={`threads/${data?._id}`}>
-          <div className="font-bold text-lg mb-1 hover:underline">{data?.title}</div>
+          <div className="font-bold text-lg mb-1 hover:underline">
+            {data?.title}
+          </div>
         </Link>
         <div
           className={

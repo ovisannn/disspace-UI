@@ -33,3 +33,7 @@ export const GetAllReports = () => {
 export const DeleteThreadAPI = (id) => {
   return `http://localhost:8080/v1/threads/${id}`;
 };
+
+export const PutVoteAPI = (username, refId) => {
+  return `http://localhost:8080/v1/users/${username}/votes/${refId}`;
+};

@@ -29,7 +29,6 @@ export default function Home() {
   const [selected, setSelected] = useState(option[0]);
   // const [sortBy, setSortBy] = useState("");
 
-  console.log(selected.value);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -57,11 +56,6 @@ export default function Home() {
     };
     fetchData();
   }, [selected]);
-
-  // // Callback function
-  // const childCallBack = ({ value }) => {
-  //   console.log(value);
-  // };
 
   return (
     <div className="flex flex-col justify-center lg:items-center">

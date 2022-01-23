@@ -26,7 +26,6 @@ function Search() {
   const router = useRouter();
   const { q } = router.query;
 
-  console.log(q);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -71,6 +70,7 @@ function Search() {
     Comments: comments,
     Users: users,
   });
+
 
   return (
     <div className="flex justify-center ">
@@ -134,7 +134,7 @@ function Search() {
                 {users?.data
                   ?.slice(0, limit != null ? limit : usersData?.length)
                   .map((user) => (
-                    <UserResult data={user} />
+                    <UserResult data={user} key={user?.username}/>
                   ))}
               </Tab.Panel>
             </Tab.Panels>

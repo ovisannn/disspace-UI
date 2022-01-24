@@ -5,6 +5,8 @@ import searchIcon from '../img/searchicon.png'
 import { BellIcon, ChatAltIcon } from '@heroicons/react/outline'
 import NewThreadIcon from '../img/newThread.svg'
 import dummyAvatar from '../img/dummy avatar.jpg'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 
 const dummyUser = {
@@ -12,7 +14,7 @@ const dummyUser = {
     full_name : 'mingun',
     username : 'jhonwkwkk',
     avatar : dummyAvatar,
-  }
+}
 
 const LoginButton = () =>{
     return (
@@ -35,13 +37,30 @@ const RegisterButton = () =>{
 }
 
 const SearchBar = () => {
+    const [keyword, setKeyword] = useState("")
+    const router = useRouter()
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        router.push({
+          pathname: '/search',
+          query: {q: keyword},
+        })
+    }
+
     return(
-        <div className='flex'>
-            <button className='border-y-2 border-l-2 border-orange px-2 pt-1 rounded-l'>
+        <form className='flex' onSubmit={handleSearch}>
+            <button className='border-y-2 border-l-2 border-orange px-2 pt-1 rounded-l' type='submit'>
                 <Image src={searchIcon} alt='' />
             </button>
-            <input type="search" className='w-96 h-8 border-l-0 rounded-l-none border-2 border-orange rounded focus:w-[600px] transition-all ease-linear outline-none px-2 placeholder:text-orange font-extralight' placeholder='Search' />
-        </div>
+            <input 
+                type="search" 
+                className='w-96 h-8 border-l-0 rounded-l-none border-2 border-orange rounded focus:w-[600px] transition-all ease-linear outline-none px-2 placeholder:text-orange font-extralight' 
+                placeholder='Search' 
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+            />
+        </form>
     )
 }
 
@@ -63,9 +82,11 @@ const UserUI = ( { userProps } ) =>{
     return(
         <>
             <div className="flex h-12 w-32 justify-between content-center mx-5 py-2">
-                <button className='h-8 w-8 boreder-2 mt-[2px]'>
-                    <Image src={NewThreadIcon} width={28} height={28} alt='' />
-                </button>
+                <Link href={`/create`}>
+                    <button className='h-8 w-8 boreder-2 mt-[2px]'>
+                        <Image src={NewThreadIcon} width={28} height={28} alt='' />
+                    </button>
+                </Link>
                 <button className="h-8 w-8 boreder-2">
                     <ChatAltIcon className='text-orange'/>
                 </button>
@@ -88,6 +109,7 @@ const UserUI = ( { userProps } ) =>{
 
 const Navbar = () => {
     let isLoggedIn = true
+
     return (
         <div className=" flex flex-row justify-between w-full md:h-16 bg-white shadow-md px-16">
             {/* logo */}

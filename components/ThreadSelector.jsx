@@ -1,15 +1,8 @@
-import { Fragment, useState } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+import { Fragment, useState } from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 
-const option = [
-  { name: 'new' },
-  { name: 'most liked' },
-  { name: 'most commented' },
-]
-
-export default function ThreadSelector() {
-  const [selected, setSelected] = useState(option[0])
+export default function ThreadSelector({option, selected, setSelected}) {
 
   return (
     <div className="w-44 top-16">
@@ -35,7 +28,7 @@ export default function ThreadSelector() {
                 <Listbox.Option
                   key={itemIdx}
                   className={({ active }) =>
-                    `${active ? 'text-amber-900 bg-amber-100' : 'text-gray-900'}
+                    `${active ? "text-amber-900 bg-amber-100" : "text-gray-900"}
                           cursor-default select-none relative py-2 pl-10 pr-4`
                   }
                   value={item}
@@ -44,7 +37,7 @@ export default function ThreadSelector() {
                     <>
                       <span
                         className={`${
-                          selected ? 'font-medium' : 'font-normal'
+                          selected ? "font-medium" : "font-normal"
                         } block truncate`}
                       >
                         {item.name}
@@ -52,7 +45,7 @@ export default function ThreadSelector() {
                       {selected ? (
                         <span
                           className={`${
-                            active ? 'text-amber-600' : 'text-amber-600'
+                            active ? "text-amber-600" : "text-amber-600"
                           }
                                 absolute inset-y-0 left-0 flex items-center pl-3`}
                         >
@@ -68,5 +61,5 @@ export default function ThreadSelector() {
         </div>
       </Listbox>
     </div>
-  )
+  );
 }

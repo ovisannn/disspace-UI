@@ -1,6 +1,11 @@
 module.exports = {
-  reactStrictMode: true,  
+  reactStrictMode: true,
   images: {
-    domains: ["randomuser.me", "images.unsplash.com", "firebasestorage.googleapis.com"],
+    domains: [
+      "randomuser.me",
+      "images.unsplash.com",
+      "firebasestorage.googleapis.com",
+      "static.wikia.nocookie.net",
+    ],
   },
-}
+};

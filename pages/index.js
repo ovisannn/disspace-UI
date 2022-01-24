@@ -101,6 +101,7 @@ export default function Home() {
                 )}
                 <div className="mx-3 md:mx-0"></div>
               </div>
+
               {/* side content */}
               <div className="flex flex-col items-center my-8 md:my-0">
                 <div>

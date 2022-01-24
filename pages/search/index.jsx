@@ -71,7 +71,6 @@ function Search() {
     Users: users,
   });
 
-
   return (
     <div className="flex justify-center ">
       <div className="w-full max-w-2xl px-2 py-8 sm:px-0">
@@ -83,10 +82,8 @@ function Search() {
                 className={({ selected }) =>
                   classNames(
                     "w-full py-2 text-sm leading-5 font-semibold text-grayTxt rounded-lg",
-                    "focus:outline-none focus:ring-2 ring-offset-2 ring-offset-blue-400 ring-white ring-opacity-60",
-                    selected
-                      ? "bg-orange text-lightGray"
-                      : "text-blue-100 hover:bg-gray"
+                    "focus:outline-none focus:ring-2 ring-offset-2 ring-white ring-opacity-60",
+                    selected ? "bg-orange text-lightGray" : " hover:bg-gray"
                   )
                 }
               >
@@ -134,7 +131,7 @@ function Search() {
                 {users?.data
                   ?.slice(0, limit != null ? limit : usersData?.length)
                   .map((user) => (
-                    <UserResult data={user} key={user?.username}/>
+                    <UserResult data={user} key={user?.username} />
                   ))}
               </Tab.Panel>
             </Tab.Panels>

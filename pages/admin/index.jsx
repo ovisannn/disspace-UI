@@ -7,11 +7,13 @@ import {
   HiOutlineUserGroup,
 } from "react-icons/hi";
 import { RiFileListLine } from "react-icons/ri";
+import { BiMessageSquareDetail } from "react-icons/bi";
 import { Tab } from "@headlessui/react";
 import { Fragment } from "react";
 import ReportList from "../../components/ReportList";
 import UserList from "../../components/UserList";
 import CommentReportList from "../../components/CommentReportList";
+import AdminDashboard from "../../components/AdminDashboard";
 
 function Admin() {
   return (
@@ -56,10 +58,10 @@ function Admin() {
                   >
                     <a href="#" className="relative flex flex-row items-center">
                       <span className="inline-flex justify-center items-center ml-4">
-                        <RiFileListLine size={24} />
+                        <BiMessageSquareDetail size={24} />
                       </span>
                       <span className="ml-2 text-sm tracking-wide truncate mt-0.5">
-                        Threads
+                        Thread
                       </span>
                     </a>
                   </Tab>
@@ -86,15 +88,14 @@ function Admin() {
             </div>
           </Tab.List>
         </div>
-        <div className="flex align-middle justify-center items-center h-full ml-14 mt-14 mb-10 md:ml-64">
+        {/* <div className="flex align-middle justify-center items-center h-full ml-14 mt-14 mb-10 md:ml-64"> */}
+        <div className="h-full ml-14 mt-14 mb-10 md:ml-64">
           <Tab.Panels>
             <Tab.Panel>
               {" "}
-              <ReportList />
+              <AdminDashboard />
             </Tab.Panel>
-            <Tab.Panel>
-              <CommentReportList />
-            </Tab.Panel>
+            <Tab.Panel>Thread</Tab.Panel>
             <Tab.Panel>
               <UserList />
             </Tab.Panel>

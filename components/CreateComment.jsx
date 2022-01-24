@@ -9,10 +9,12 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 function CreateComment({ threadId }) {
   const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const id = "user123566666"
+  const id = "user123566666";
 
   const handleComment = async (e) => {
+    setLoading(true);
     try {
       const response = await axios({
         method: "post",
@@ -20,12 +22,14 @@ function CreateComment({ threadId }) {
         data: {
           thread_id: threadId,
           text: text,
-        }
+        },
       });
       console.log(response);
+      setLoading(false);
       setText("");
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -62,7 +66,11 @@ function CreateComment({ threadId }) {
           className="bg-lightTeal hover:bg-lightBlue text-white font-semibold md:px-10 px-4 rounded-full h-10 ml-3 mt-1"
           onClick={handleComment}
         >
-          Add
+          {loading ? (
+            <div class="flex justify-center align-middle items-center spinner-border animate-spin w-6 h-6 border-4 rounded-full text-white border-t-lightTeal "></div>
+          ) : (
+            "Add"
+          )}
         </button>
       </div>
     </>

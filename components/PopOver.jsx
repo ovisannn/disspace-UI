@@ -9,7 +9,7 @@ import axios from "axios";
 import { ReportTargetAPI } from "../pages/api/Helpers";
 
 function PopOver({ targetId, targetType }) {
-  var username = "61bb011b631b46d08adc16ec"
+  var username = "61bb011b631b46d08adc16ec";
   const handleReport = async (e) => {
     try {
       const response = await axios({
@@ -25,6 +25,7 @@ function PopOver({ targetId, targetType }) {
       console.log(error);
     }
   };
+
   const moreMenus = [
     {
       name: "Subscribe",

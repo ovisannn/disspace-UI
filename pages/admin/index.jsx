@@ -1,83 +1,117 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { GetAllReports } from "../api/Helpers";
-import Link from "next/link";
+import React from "react";
+import Navbar from "../../components/navbar";
+import Layout from "../../components/layout";
+import {
+  HiOutlineClipboardList,
+  HiOutlineUser,
+  HiOutlineUserGroup,
+} from "react-icons/hi";
+import { RiFileListLine } from "react-icons/ri";
+import { Tab } from "@headlessui/react";
+import { Fragment } from "react";
+import ReportList from "../../components/ReportList";
+import UserList from "../../components/UserList";
+import CommentReportList from "../../components/CommentReportList";
 
 function Admin() {
-  const [reports, setReports] = useState();
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    axios({
-      method: "get",
-      url: GetAllReports(),
-    }).then((response) => {
-      setReports(response?.data);
-      setLoading(false);
-    });
-  }, []);
-
   return (
-    <div className="flex justify-center">
-      {loading ? (
-        "loading..."
-      ) : (
-        <table className="table-auto bg-white shadow-md">
-          <thead>
-            <tr>
-              <th className="p-3 px-5">Source</th>
-              <th className="p-3 px-5">Type</th>
-              <th className="p-3 px-5">Count</th>
-              <th className="p-3 px-5">Description</th>
-              <th className="p-3 px-5"></th>
-              <th className="p-3 px-5"></th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {reports?.data?.map((data) => (
-              <tr key={data?.target_id} className="border-t border-gray">
-                <td className="px-3">{data?.target_id}</td>
-                <td className="text-sm font-light">
-                  {data?.target_type == 1 ? (
-                    <div className="bg-orange rounded-full">user</div>
-                  ) : data?.target_type == 2 ? (
-                    <div className="">comment</div>
-                  ) : (
-                    <div className="rounded-full bg-green">thread</div>
-                  )}
-                </td>
-                <td>{data?.count}</td>
-                <td>{data?.description}</td>
-                <td className="py-2 px-3">
-                  <Link
-                    href={`${data?.target_type == 1 ? "user" : "threads"}/${
-                      data?.target_id
-                    }`}
+    <>
+      <Tab.Group>
+        <div className="fixed flex flex-col top-16 left-0 w-14 mt-1 hover:w-64 md:w-64 bg-white h-full transition-all duration-300 border-none z-10 shadow-md">
+          <Tab.List>
+            <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
+              <ul className="flex flex-col py-4 space-y-1">
+                <li className="px-5 hidden md:block text-center text-orange my-3">
+                  <div className="flex flex-row items-center h-8">
+                    <div className="text-xl font-bold text-center tracking-wide">
+                      Welcome, Admin!
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <Tab
+                    className={({ selected }) =>
+                      selected
+                        ? "h-11 focus:outline-none bg-gray text-black w-full border-l-4 border-black pr-6"
+                        : "h-11 focus:outline-none hover:bg-gray text-grayTxt hover:text-black w-full border-l-4 border-white hover:border-black pr-6"
+                    }
                   >
-                    <button className="bg-transparent hover:bg-lightBlue text-lightTeal font-semibold hover:text-white py-1.5 px-3 border border-lightBlue hover:border-transparent rounded">
-                      View Details
-                    </button>
-                  </Link>
-                </td>
-                <td className="pr-2">
-                  {data?.target_type == 1 ? (
-                    <button className="bg-transparent hover:bg-darkRed text-red font-semibold hover:text-white border w-20 h-10 border-red hover:border-transparent rounded">
-                      Ban
-                    </button>
-                  ) : (
-                    <button className="bg-transparent hover:bg-darkRed text-red font-semibold hover:text-white border w-20 h-10 border-red hover:border-transparent rounded">
-                      Delete
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+                    <a href="#" className="relative flex flex-row items-center">
+                      <span className="inline-flex justify-center items-center ml-4">
+                        <HiOutlineClipboardList size={24} />
+                      </span>
+                      <span className="ml-2 text-sm tracking-wide truncate mt-0.5">
+                        Report List
+                      </span>
+                    </a>
+                  </Tab>
+                </li>
+                <li>
+                  <Tab
+                    className={({ selected }) =>
+                      selected
+                        ? "h-11 focus:outline-none bg-gray text-black w-full border-l-4 border-black pr-6"
+                        : "h-11 focus:outline-none hover:bg-gray text-grayTxt hover:text-black w-full border-l-4 border-white hover:border-black pr-6"
+                    }
+                  >
+                    <a href="#" className="relative flex flex-row items-center">
+                      <span className="inline-flex justify-center items-center ml-4">
+                        <RiFileListLine size={24} />
+                      </span>
+                      <span className="ml-2 text-sm tracking-wide truncate mt-0.5">
+                        Threads
+                      </span>
+                    </a>
+                  </Tab>
+                </li>
+                <li>
+                  <Tab
+                    className={({ selected }) =>
+                      selected
+                        ? "h-11 focus:outline-none bg-gray text-black w-full border-l-4 border-black pr-6"
+                        : "h-11 focus:outline-none hover:bg-gray text-grayTxt hover:text-black w-full border-l-4 border-white hover:border-black pr-6"
+                    }
+                  >
+                    <a href="#" className="relative flex flex-row items-center">
+                      <span className="inline-flex justify-center items-center ml-4">
+                        <HiOutlineUserGroup size={24} />
+                      </span>
+                      <span className="ml-2 text-sm tracking-wide truncate mt-0.5">
+                        Users
+                      </span>
+                    </a>
+                  </Tab>
+                </li>
+              </ul>
+            </div>
+          </Tab.List>
+        </div>
+        <div className="flex align-middle justify-center items-center h-full ml-14 mt-14 mb-10 md:ml-64">
+          <Tab.Panels>
+            <Tab.Panel>
+              {" "}
+              <ReportList />
+            </Tab.Panel>
+            <Tab.Panel>
+              <CommentReportList />
+            </Tab.Panel>
+            <Tab.Panel>
+              <UserList />
+            </Tab.Panel>
+          </Tab.Panels>
+        </div>
+      </Tab.Group>
+    </>
   );
 }
 
 export default Admin;
+
+Admin.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      <Navbar />
+      {page}
+    </Layout>
+  );
+};

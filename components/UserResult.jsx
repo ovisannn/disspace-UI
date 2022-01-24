@@ -1,5 +1,3 @@
-import { useState } from "react";
-import Popover from "./PopOver";
 import Link from "next/link";
 import { BsDot } from "react-icons/bs";
 

@@ -37,3 +37,15 @@ export const DeleteThreadAPI = (id) => {
 export const PutVoteAPI = (username, refId) => {
   return `http://localhost:8080/v1/users/${username}/votes/${refId}`;
 };
+
+export const GetCommentByID = (id) => {
+  return `http://localhost:8080/v1/comment/${id}`;
+};
+
+export const GetCommentsReports = () => {
+  return "http://localhost:8080/v1/reports/comments";
+};
+
+export const GetUserReports = () => {
+  return "http://localhost:8080/v1/reports/users";
+};

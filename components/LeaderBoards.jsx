@@ -24,8 +24,8 @@ const LeaderBoards = ({ topUsers }) => {
         </div>
         <div className="w-full px-5 font-light bg-lightGray">
             {
-                topUsers.map((user, index) => (
-                    <UserButton key={user.username} user={user} rangking={index+1} />
+                topUsers?.map((user, index) => (
+                    <UserButton key={user._id} user={user} rangking={index+1} />
                 ))
             }
         </div>

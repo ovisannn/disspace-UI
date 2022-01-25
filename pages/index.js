@@ -13,7 +13,7 @@ import Thread from "../components/thread";
 import ThreadSelector from "../components/ThreadSelector";
 import Footer from "../components/Footer";
 import axios from "axios";
-import { GetCategoriesAPI, GetThreadAPI } from "./api/Helpers";
+import { GetCategoriesAPI, GetThreadAPI, GetLeaderboard } from "./api/Helpers";
 
 const option = [
   { name: "recent", value: "created_at" },
@@ -25,6 +25,7 @@ export default function Home() {
   const [limit, setLimit] = useState(4);
   const [threadData, setThreadData] = useState();
   const [catData, setCatData] = useState();
+  const [getLeaderboardData, setLeaderboard] = useState()
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState(option[0]);
   // const [sortBy, setSortBy] = useState("");
@@ -33,7 +34,7 @@ export default function Home() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [threadsData, categoriesData] = await Promise.all([
+        const [threadsData, categoriesData, leaderBoardData] = await Promise.all([
           axios({
             method: "get",
             url: GetThreadAPI(),
@@ -45,9 +46,14 @@ export default function Home() {
             method: "get",
             url: GetCategoriesAPI(),
           }),
+          axios({
+            method: 'get',
+            url : GetLeaderboard(),
+          })
         ]);
         setThreadData(threadsData?.data);
         setCatData(categoriesData?.data);
+        setLeaderboard(leaderBoardData?.data)
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -104,7 +110,7 @@ export default function Home() {
               {/* side content */}
               <div className="flex flex-col items-center my-8 md:my-0">
                 <div>
-                  <LeaderBoards topUsers={topUser} />
+                  <LeaderBoards topUsers={getLeaderboardData?.data} />
                 </div>
                 <div className="py-8">
                   <CategoryList categories={catData?.data} />

@@ -31,10 +31,12 @@ const DisspaceLogo = () =>{
 const LoginButton = () =>{
     return (
         <div>
-            <Link href='/login'>                
-                <button className="mx-2 border-2 h-10 w-24 text-orange rounded hover:text-white hover:bg-orange transition-all ease-linear">
-                    Login
-                </button>
+            <Link href='/login'>
+                <a>
+                    <button className="mx-2 border-2 h-10 w-24 text-orange rounded hover:text-white hover:bg-orange transition-all ease-linear">
+                        Login
+                    </button>
+                </a>               
             </Link>
         </div>
     )

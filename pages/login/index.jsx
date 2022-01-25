@@ -1,13 +1,9 @@
-// import Navbar from "../../components/navbar"
 import NavbarV2 from "../../components/navbarV2"
 import Image from "next/image"
 import IlustrationImage from '../../img/undraw_conversation_re_c26v1.svg'
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import { LoginHandle } from "../api/LoginHandle"
-import { useRouter } from "next/router"
-import { data } from "autoprefixer"
-// import { NextResponse, NextRequest } from 'next/server'
+import { useState } from "react"
 
 
 const LoginForm = () =>{
@@ -38,7 +34,7 @@ const LoginForm = () =>{
         let passwordInput = getLogin.password
         LoginHandle(usernameInput, passwordInput)
         }
-        // console.log(getLogin)
+   
     return (
         <div className="border-2 border-orange rounded-lg w-96 py-10 shadow flex flex-col">
             <h1 className="text-center text-orange font-medium text-3xl md:mb-10">LOGIN</h1>
@@ -67,15 +63,15 @@ const LoginForm = () =>{
 const Description = () =>{
     return(
         <>
-        <Image src={IlustrationImage} />
-        <p className="font-light my-5 md:text-lg md:text-2xl text-center md:text-left">
+        <Image src={IlustrationImage} alt="" />
+        <p className="font-light my-5 md:text-lg text-center md:text-left">
             DisSpace is a disscussion space for everyone,<br /> everywhere, and about anything
         </p>
         </>
     )
 }
 
-const Index = () => {
+const index = () => {
     return (
         <div className="flex flex-col">
             <NavbarV2 />
@@ -93,4 +89,4 @@ const Index = () => {
     )
 }
 
-export default Index
+export default index

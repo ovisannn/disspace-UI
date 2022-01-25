@@ -8,7 +8,7 @@ import {
 } from "../dummyData";
 import LeaderBoards from "../components/LeaderBoards";
 import CategoryList from "../components/CategoryList";
-import Navbar from "../components/navbar";
+import NavbarV2 from "../components/NavbarV2";
 import Thread from "../components/thread";
 import ThreadSelector from "../components/ThreadSelector";
 import Footer from "../components/Footer";
@@ -59,7 +59,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col justify-center lg:items-center">
-      <Navbar />
+      <NavbarV2 />
       {loading ? (
         <div className="flex items-center justify-center my-80 space-x-2 animate-bounce">
           <div className="w-5 h-5 bg-orange rounded-full"></div>

@@ -1,9 +1,15 @@
+// const Domain = "http://localhost:8080"
+
+export const Domain =()=>{
+  return "http://localhost:8080"
+}
+
 export const GetThreadAPI = () => {
-  return "http://localhost:8080/v1/threads";
+  return `${Domain()}/v1/threads`;
 };
 
 export const GetCategoriesAPI = () => {
-  return "http://localhost:8080/v1/categories";
+  return `${Domain()}/v1/categories`;
 };
 
 export const CreateCommentAPI = (id) => {
@@ -49,3 +55,11 @@ export const GetCommentsReports = () => {
 export const GetUserReports = () => {
   return "http://localhost:8080/v1/reports/users";
 };
+
+export const LoginAPI =() =>{
+  return `${Domain()}/v1/user/login`
+}
+
+export const GetUserProfile = (username) =>{
+  return `${Domain()}/v1/userProfile/${username}`
+}

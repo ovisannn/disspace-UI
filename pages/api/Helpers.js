@@ -71,3 +71,11 @@ export const GetLeaderboard = () =>{
 export const GetCategoryByID = (id) =>{
   return `${Domain()}/v1/categories/${id}`
 }
+
+export const GetModeratorsByCategoryID = (id) =>{
+  return `${Domain()}/v1/moderators/${id}`
+}
+
+export const GetThreadsByCategoryID = (id) =>{
+  return `${Domain()}/v1/threads/category/${id}`
+}

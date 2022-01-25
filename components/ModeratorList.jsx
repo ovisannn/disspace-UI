@@ -37,8 +37,8 @@ const ModeratorList = ({ category, moderatorList }) => {
 
             <div className="my-5">
                 {
-                    moderatorList.map((person)=>(
-                        <div  key={person.id}>
+                    moderatorList?.map((person)=>(
+                        <div key={person._id}>
                             <ModeratorTag moderator = {person}/>
                         </div>
                     ))

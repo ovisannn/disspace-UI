@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logoImg from "../img/disspace.png"
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { Router, useRouter } from "next/router";
 import searchIcon from '../img/searchicon.png'
 import NewThreadIcon from '../img/newThread.svg'
@@ -9,6 +9,7 @@ import { BellIcon, ChatAltIcon } from '@heroicons/react/outline'
 // import { GetLocal } from "../pages/api/LoginHandle";
 import { GetUserProfile } from "../pages/api/Helpers";
 // import Image from "next/image";
+import { Menu, Transition } from "@headlessui/react";
 
 
 
@@ -111,9 +112,10 @@ const UserProfile = ({ user }) =>{
             </div>
 
 
-            <Link href={`/userProfile/${user.username}`}>
-                <a>
-                    <div className="flex flex-row h-12 w-auto max-w-[144px] border-2 border-orange rounded-md text-center font-normal p-1">
+            {/* <Link href={`/userProfile/${user.username}`}>
+                <a> */}
+                <Menu>
+                    <Menu.Button className="flex flex-row h-12 w-auto max-w-[144px] border-2 border-orange rounded-md text-center font-normal p-1">
                         <div className="rounded-full h-8 w-8" style={{overflow:'hidden'}}>                            
                             <img
                             alt=""
@@ -124,9 +126,38 @@ const UserProfile = ({ user }) =>{
                         <div className="ml-3 mt-1">
                             {user.username}
                         </div>
-                    </div>
-                </a>
-            </Link>
+                    </Menu.Button>
+                    <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                    >
+                    <Menu.Items className="absolute right-0 w-32 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="px-1 py-1 ">
+                        <Menu.Item>
+                            {({ active }) => (
+                            <button className={`${active ? 'bg-green text-white' : 'text-green'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}>
+                                profile
+                            </button>
+                            )}
+                        </Menu.Item>
+                        <Menu.Item>
+                            {({ active }) => (
+                            <button className={`${active ? 'bg-darkRed text-white' : 'text-darkRed'} group flex rounded-md items-center w-full px-2 py-2 text-sm`}>
+                                logout
+                            </button>
+                            )}
+                        </Menu.Item>
+                        </div>
+                    </Menu.Items>
+                    </Transition>
+                </Menu>
+                {/* </a>
+            </Link> */}
         </div>
     )
 }

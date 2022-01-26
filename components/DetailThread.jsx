@@ -8,16 +8,11 @@ import Link from "next/link";
 import CreateComment from "./CreateComment";
 import VoteButtonLogic from "./VoteButtonLogic";
 
-function Thread({ data, showMore }) {
-  const [active, setActive] = useState(false);
+function DetailThread({ data }) {
   const [comment, setComment] = useState(false);
 
   const toggleComment = () => {
     setComment(!comment);
-  };
-
-  const toggleActive = () => {
-    setActive(true);
   };
 
   return (
@@ -55,33 +50,20 @@ function Thread({ data, showMore }) {
         </div>
       </div>
       <div className="mt-2">
-        <Link href={`threads/${data?._id}`}>
-          <div className="font-bold text-lg mb-1 hover:underline">
-            {data?.title}
+        <div className="font-bold text-lg mb-1 hover:underline">
+          {data?.title}
+        </div>
+        <div className="bg-gray flex justify-center my-5">
+          <div className="w-1/3 h-72 relative">
+            <Image src={data?.image_url} layout="fill" objectFit="fit"/>
           </div>
-        </Link>
+        </div>
         <div
-          className={
-            active
-              ? "unreset h-fit font-medium text-sm"
-              : "unreset h-8 truncate font-medium text-sm w-1/2"
-          }
+          className={"unreset h-fit font-medium text-sm"}
           dangerouslySetInnerHTML={{ __html: data?.content }}
         />
-        {active ? (
-          ""
-        ) : data?.content?.length >= 200 ? (
-          <div
-            className="text-lightBlue hover:text-blue mt-2 text-sm text-center"
-            onClick={toggleActive}
-          >
-            (read more)
-          </div>
-        ) : (
-          ""
-        )}
       </div>
-      <div className="flex items-center text-grayTxt text-xs mt-3">
+      <div className="flex items-center text-grayTxt text-xs mt-5">
         <VoteButtonLogic data={data} currentUsername={"redflavor12345"} />
         <div
           className="flex items-center ml-1 sm:ml-5 hover:bg-gray p-1 rounded-md cursor-pointer"
@@ -110,4 +92,4 @@ function Thread({ data, showMore }) {
   );
 }
 
-export default Thread;
+export default DetailThread;

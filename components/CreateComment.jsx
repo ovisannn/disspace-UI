@@ -21,6 +21,7 @@ function CreateComment({ threadId }) {
         url: CreateCommentAPI(id),
         data: {
           thread_id: threadId,
+          parent_id: threadId,
           text: text,
         },
       });
@@ -41,7 +42,7 @@ function CreateComment({ threadId }) {
 
   return (
     <>
-      <div className="flex justify-evenly py-2 px-2">
+      <div className="flex justify-evenly align-middle py-2 px-2">
         <div className="h-10 w-10">
           <Image
             className="rounded-full"
@@ -61,17 +62,19 @@ function CreateComment({ threadId }) {
             placeholder="Add a comment..."
           />
         </div>
-        <button
-          type="button"
-          className="bg-lightTeal hover:bg-lightBlue text-white font-semibold md:px-10 px-4 rounded-full h-10 ml-3 mt-1"
-          onClick={handleComment}
-        >
-          {loading ? (
-            <div class="flex justify-center align-middle items-center spinner-border animate-spin w-6 h-6 border-4 rounded-full text-white border-t-lightTeal "></div>
-          ) : (
-            "Add"
-          )}
-        </button>
+        <div className="item-center">
+          <button
+            type="button"
+            className="bg-lightTeal hover:bg-lightBlue text-white font-semibold md:px-6 px-4 rounded-full h-10 ml-3 mt-1 text-sm"
+            onClick={handleComment}
+          >
+            {loading ? (
+              <div class="flex justify-center align-middle items-center spinner-border animate-spin w-6 h-6 border-4 rounded-full text-white border-t-lightTeal "></div>
+            ) : (
+              "Add Comment"
+            )}
+          </button>
+        </div>
       </div>
     </>
   );

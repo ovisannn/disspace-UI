@@ -49,3 +49,11 @@ export const GetCommentsReports = () => {
 export const GetUserReports = () => {
   return "http://localhost:8080/v1/reports/users";
 };
+
+export const GetThreadByID = (threadId) => {
+  return `http://localhost:8080/v1/threads/${threadId}`
+}
+
+export const GetAllCommentInThread = (threadId, parentId) => {
+  return `http://localhost:8080/v1/threads/${threadId}/comment/${parentId}`
+}

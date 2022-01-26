@@ -8,7 +8,7 @@ const CategoriesRules = ({ category }) => {
         <div className="h-20 w-full relative rounded-t text-white font-light text-2xl text-center align-middle py-5" style={{backgroundColor: category.color_theme}}>
             Topic&apos;s Rules
         </div>
-        <div className="w-full px-5 font-light">
+        <div className="w-full px-5 font-light py-3">
             {
                 category.rules.map((item)=>(
                     <div  key={item.no}>

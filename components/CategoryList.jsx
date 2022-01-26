@@ -2,10 +2,12 @@ import Link from "next/link";
 
 const CategoryButton = ({ category }) => {
   return (
-    <Link href={`/categories/${category._id}`}>
-      <button className="bg-white rounded-md shadow-md w-full my-1 py-2 px-3 text-left font-light">
-        #{category.category_name}
-      </button>
+    <Link href={`/category/${category._id}`}>
+      <a>
+        <button className="bg-white rounded-md shadow-md w-full my-1 py-2 px-3 text-left font-light">
+          #{category.category_name}
+        </button>
+      </a>
     </Link>
   );
 };

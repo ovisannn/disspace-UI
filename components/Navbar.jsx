@@ -83,9 +83,9 @@ const UserUI = ( { userProps } ) =>{
         <>
             <div className="flex h-12 w-32 justify-between content-center mx-5 py-2">
                 <Link href={`/create`}>
-                    <button className='h-8 w-8 boreder-2 mt-[2px]'>
+                    <div className='h-8 w-8 boreder-2 mt-[2px]'>
                         <Image src={NewThreadIcon} width={28} height={28} alt='' />
-                    </button>
+                    </div>
                 </Link>
                 <button className="h-8 w-8 boreder-2">
                     <ChatAltIcon className='text-orange'/>
@@ -109,6 +109,7 @@ const UserUI = ( { userProps } ) =>{
 
 const Navbar = () => {
     let isLoggedIn = true
+    const [a, b] = useState()
 
     return (
         <div className=" flex flex-row justify-between w-full md:h-16 bg-white shadow-md px-16">

@@ -28,7 +28,7 @@ function Thread({ data, showMore }) {
             className="rounded-full"
             height={48}
             width={48}
-            src={data?.user?.profile_pict}
+            src={data?.user.profile_pict}
             alt="user-profile"
           />
           <div className="ml-3">

@@ -2,11 +2,8 @@ import { useState, useEffect } from "react";
 import { Tab } from "@headlessui/react";
 import axios from "axios";
 import Thread from "../../components/thread";
-import Layout from "../../components/layout";
-import Navbar from "../../components/navbar";
 import UserResult from "../../components/UserResult";
 import CommentResult from "../../components/CommentResult";
-
 import {
   SearchCommentAPI,
   SearchThreadAPI,

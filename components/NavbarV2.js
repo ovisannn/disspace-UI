@@ -10,6 +10,9 @@ import { BellIcon, ChatAltIcon } from '@heroicons/react/outline'
 import { GetUserProfile } from "../pages/api/Helpers";
 // import Image from "next/image";
 import { Menu, Transition } from "@headlessui/react";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase/firebase-config";
+import { async } from "@firebase/util";
 
 
 
@@ -82,7 +85,54 @@ const SearchBar = () => {
 }
 
 const UserProfile = ({ user }) =>{
-    // const profilePict = user.profile_pict
+    // const profilePict = ref(storage, 'gs://disspace-76973.appspot.com/user_profile_img/profile_default.jpg')
+    const [getLoading, setLoading] = useState(false)
+    const [getImg, setImg] = useState()
+    const returnImgString = (imgpath)=>{
+        return `${imgpath}`
+    }
+    
+    useEffect(()=>{
+        const getUrl = async () =>{
+            setLoading(true)
+            try{
+                getDownloadURL(ref(storage, returnImgString('gs://disspace-76973.appspot.com/user_profile_img/profile_default.jpg'))).then((url)=>{
+                    setImg(url)
+                })
+            }catch(error){
+                switch (error.code) {
+                    case 'storage/object-not-found':
+                      // File doesn't exist
+                      break;
+                    case 'storage/unauthorized':
+                      // User doesn't have permission to access the object
+                      break;
+                    case 'storage/canceled':
+                      // User canceled the upload
+                      break;
+                
+                    // ...
+                
+                    case 'storage/unknown':
+                      // Unknown error occurred, inspect the server response
+                      break;
+                  }
+            }
+        }
+        getUrl()
+    })
+    // console.log(getImg)
+    const fillStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden'
+    }
+    const imgFillStyle ={
+            flexShrink: '0',
+            minWidth: '100%',
+            minHeight: '100%'     
+    }
     return (
         <div className="flex flex-row gap-1">
             <div className="mt-2 flex flex-row gap-3">
@@ -116,11 +166,13 @@ const UserProfile = ({ user }) =>{
                 <a> */}
                 <Menu>
                     <Menu.Button className="flex flex-row h-12 w-auto max-w-[144px] border-2 border-orange rounded-md text-center font-normal p-1">
-                        <div className="rounded-full h-8 w-8" style={{overflow:'hidden'}}>                            
+                        <div className="rounded-full h-8 w-8" style={fillStyle}>                            
                             <img
                             alt=""
-                            src={user?.profile_pict}
+                            // src={getImg}
+                            src={getImg}
                             layout='fixed' width={32} height={32}
+                            style={imgFillStyle}
                             />
                         </div>
                         <div className="ml-3 mt-1">

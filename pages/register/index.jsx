@@ -2,6 +2,8 @@ import React from 'react';
 import NavbarV2 from '../../components/NavbarV2'
 import Link from 'next/link';
 import { useState } from 'react';
+import { RegisterHandle } from '../api/RegisterHandle';
+import Router from 'next/router';
 
 
 const RegisterForm = () =>{
@@ -11,7 +13,7 @@ const RegisterForm = () =>{
         username : '',
         password : '',
         retypePass :'',
-        gender:'',
+        gender:'unknown',
     }
     const [getAgreed, setAgreed] = useState(false)
     const [getRegis, setRegis] = useState(initialRegisState)
@@ -64,10 +66,17 @@ const RegisterForm = () =>{
         ))
     }
     const onSubmit = ()=>{
+        var router = Router
         if (!getAgreed){
             alert('please check the agreement box')
             return
         }
+        if (getRegis.retypePass != getRegis.password){
+            alert('plese retype your password correctly')
+            return
+        }
+        RegisterHandle(getRegis)
+        router.push('/login')
         // console.log(getRegis)
         // console.log(getAgreed)
     }
@@ -80,15 +89,15 @@ const RegisterForm = () =>{
             </div>
             <div className='flex flex-col md:flex-row justify-between'>
                 <div className='flex flex-col justify-center md:py-3 md:px-10'>Name</div>
-                <div className='md:w-96'><input type="name" placeholder="name" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={nameHandle}/></div>
+                <div className='md:w-96'><input type="name" placeholder="name" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={nameHandle} required/></div>
             </div>
             <div className='flex flex-col md:flex-row justify-between'>
                 <div className='flex flex-col justify-center md:py-3 md:px-10'>Email</div>
-                <div className='md:w-96'><input type="Email" placeholder="Email" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={emailHandle} /></div>
+                <div className='md:w-96'><input type="Email" placeholder="Email" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={emailHandle} required/></div>
             </div>
             <div className='flex flex-col md:flex-row justify-between'>
                 <div className='flex flex-col justify-center md:py-3 md:px-10'>Username</div>
-                <div className='md:w-96'><input type="Username" placeholder="Username" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={usernameHandle} /></div>
+                <div className='md:w-96'><input type="Username" placeholder="Username" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={usernameHandle} required/></div>
             </div>            
             <div className='flex flex-col md:flex-row justify-between'>
                 <div className='flex flex-col justify-center md:py-3 md:px-10'>Gender</div>
@@ -106,15 +115,15 @@ const RegisterForm = () =>{
             </div>
             <div className='flex flex-col md:flex-row justify-between'>
                 <div className='flex flex-col justify-center md:py-3 md:px-10'>Password</div>
-                <div className='md:w-96'><input type="Password" placeholder="Password" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={passwordHandle} /></div>
+                <div className='md:w-96'><input type="Password" placeholder="Password" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={passwordHandle} required/></div>
             </div>
             <div className='flex flex-col md:flex-row justify-between'>
                 <div className='flex flex-col justify-center md:py-3 md:px-10'>Retype Password</div>
-                <div className='md:w-96'><input type="Retype Password" placeholder="Retype Password" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={retypePassHandle} /></div>
+                <div className='md:w-96'><input type="Password" placeholder="Password" className="w-full md:w-full px-2 my-3 h-10 rounded-md shadow outline-lightOrange placeholder:font-light" onChange={retypePassHandle} required/></div>
             </div>
             <div className='flex flex-col md:flex-row justify-center text-center font-extralight'>
                 <input className="form-check-input appearance-none h-4 w-4 border border-grayTxt rounded-sm bg-white checked:bg-orange checked:border-orange focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="agreed" id="flexCheckIndeterminate" onClick={()=>{getAgreed?setAgreed(false):setAgreed(true)}}/>
-                <label className="form-check-label inline-block text-gray-800 w-96">
+                <label className="form-check-label inline-block text-gray-800 md:w-96">
                     I am agree to the terms of the Forum Subscriber Agreement and the Forum Privacy Policy.
                 </label>
             </div>

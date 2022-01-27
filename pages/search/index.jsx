@@ -11,6 +11,8 @@ import {
   SearchUserAPI,
 } from "../api/Helpers";
 import { useRouter } from "next/router";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase/firebase-config";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

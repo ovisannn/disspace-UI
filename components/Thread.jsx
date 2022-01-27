@@ -8,6 +8,8 @@ import Link from "next/link";
 import CreateComment from "./CreateComment";
 import { PutVoteAPI } from "../pages/api/Helpers";
 import axios from "axios";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase/firebase-config";
 
 function Thread({ data }) {
   const [active, setActive] = useState(false);
@@ -96,7 +98,13 @@ function Thread({ data }) {
   const toggleActive = () => {
     setActive(true);
   };
-
+  const [getImg, setImg] = useState()
+  // console.log(user?.profile_pict)
+  useEffect(()=>{
+      getDownloadURL(ref(storage, 'gs://disspace-76973.appspot.com/user_profile_img/profile_default.jpg')).then((url)=>{
+          setImg(url)
+      })
+  }, [])
   return (
     <div className="bg-white shadow-md px-4 py-3 mt-3 mx-2 md:mx-0 rounded cursor-pointer max-w-2xl hover:drop-shadow-lg h-fit">
       <div className="flex justify-between">
@@ -105,7 +113,7 @@ function Thread({ data }) {
             className="rounded-full"
             height={48}
             width={48}
-            src={data?.user?.profile_pict}
+            src={getImg}
             alt="user-profile"
           />
           <div className="ml-3">

@@ -79,3 +79,7 @@ export const GetModeratorsByCategoryID = (id) =>{
 export const GetThreadsByCategoryID = (id) =>{
   return `${Domain()}/v1/threads/category/${id}`
 }
+
+export const RegisterAPI = () =>{
+  return `${Domain()}/v1/user/register`
+}

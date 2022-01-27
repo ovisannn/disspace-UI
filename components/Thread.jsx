@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/link-passhref */
 import { useEffect, useState } from "react";
 import { BsDot, BsTriangle, BsTriangleFill } from "react-icons/bs";
 import { AnnotationIcon, ShareIcon } from "@heroicons/react/outline";

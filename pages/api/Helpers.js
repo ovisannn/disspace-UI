@@ -1,7 +1,7 @@
 // const Domain = "http://localhost:8080"
 
 export const Domain = () => {
-  return "http://localhost:8080";
+  return "http://3.144.78.235:8080";
 };
 
 export const GetThreadAPI = () => {

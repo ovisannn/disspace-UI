@@ -41,9 +41,11 @@ const LoginButton = () => {
 const RegisterButton = () => {
   return (
     <div>
-      <button className="mx-2 h-10 w-24 text-white bg-orange rounded transition-all ease-linear hover:text-orange hover:border-2 hover:bg-white">
-        Register
-      </button>
+      <Link href="/register"><a>        
+        <button className="mx-2 h-10 w-24 text-white bg-orange rounded transition-all ease-linear hover:text-orange hover:border-2 hover:bg-white">
+          Register
+        </button>
+      </a></Link>
     </div>
   );
 };
@@ -135,6 +137,10 @@ const UserProfile = ({ user }) => {
     minWidth: "100%",
     minHeight: "100%",
   };
+  const RouteHandle = ()=>{
+    const router =useRouter()
+    router.push('/login')
+  }
   return (
     <div className="flex flex-row gap-1">
       <div className="mt-2 flex flex-row gap-3">
@@ -207,7 +213,10 @@ const UserProfile = ({ user }) => {
                   <button
                     className={`${
                       active ? "bg-darkRed text-white" : "text-darkRed"
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`} onClick={()=>{
+                      localStorage.clear()
+                      // RouteHandle()
+                    }}
                   >
                     logout
                   </button>

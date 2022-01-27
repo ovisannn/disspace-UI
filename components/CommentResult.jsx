@@ -1,83 +1,38 @@
 import React, { useState } from "react";
-import { BsDot, BsTriangle, BsTriangleFill } from "react-icons/bs";
+import { BsDot } from "react-icons/bs";
+import { AnnotationIcon, ShareIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import moment from "moment";
 import PopOver from "./PopOver";
+import NestedReplies from "./NestedReplies";
+import VoteButtonLogic from "./VoteButtonLogic";
+import NestedCreateReply from "./NestedCreateReply";
+import Image from "next/image";
 
-function CommentResult() {
-  const checkUpvote = false;
-  const checkDownvote = true;
+function CommentResult({ data }) {
+  const [repliesActive, setRepliesActive] = useState(false);
 
-  const [action, setAction] = useState({
-    upvote: checkUpvote,
-    downvote: checkDownvote,
-  });
-
-  const comments = `<p>added</p><p>New</p><p>Comment</p><p>From</p><p>FrontEnd</p>`;
-  const num_votes = 100;
-  const [vote, setVote] = useState(num_votes);
-  const [status, setStatus] = useState(0);
-
-  const handleUpvote = () => {
-    setAction({
-      upvote: !action.upvote,
-      downvote: false,
-    });
-    action.upvote
-      ? checkUpvote
-        ? setVote(num_votes - 1)
-        : checkDownvote
-        ? setVote(num_votes + 1)
-        : setVote(num_votes)
-      : checkUpvote
-      ? setVote(num_votes)
-      : checkDownvote
-      ? setVote(num_votes + 2)
-      : setVote(num_votes + 1);
-    action.upvote ? setStatus(0) : setStatus(1);
-  };
-
-  console.log(status)
-  const handleDownvote = () => {
-    setAction({
-      downvote: !action.downvote,
-      upvote: false,
-    });
-    action.downvote
-      ? checkDownvote
-        ? setVote(num_votes + 1)
-        : checkUpvote
-        ? setVote(num_votes - 1)
-        : setVote(num_votes)
-      : checkDownvote
-      ? setVote(num_votes)
-      : checkUpvote
-      ? setVote(num_votes - 2)
-      : setVote(num_votes - 1);
-    action.downvote ? setStatus(0) : setStatus(-1);
+  const toggleComment = () => {
+    setRepliesActive(!repliesActive);
   };
 
   return (
     <div className="bg-white shadow-md px-4 py-3 mt-3 rounded cursor-pointer max-w-2xl hover:drop-shadow-lg h-fit">
       <div className="flex justify-between">
         <div className="flex item-center align-middle">
-          <img
+          <Image
             className="rounded-full"
-            height={48}
-            width={48}
-            //   src={data?.profile_pict}
-            src="https://randomuser.me/api/portraits/men/19.jpg"
+            height={39}
+            width={39}
+            layout="fixed"
+            src={data?.user?.profile_pict}
             alt="user-profile"
           />
           <div className="ml-3">
             <div className="text-sm">
-              <Link
-                // href={`user/${data?.user?.username}`}
-                href={`user`}
-              >
+              <Link href={`user/${data?.user?.username}`}>
                 <a className="font-semibold hover:underline">
-                  {/* {data?.user?.username} */}
-                  username
+                  {data?.user?.username}
                 </a>
               </Link>
               <span>
@@ -88,8 +43,7 @@ function CommentResult() {
               </span>
             </div>
             <div className="text-grayTxt font-medium text-xs">
-              {/* {moment(data?.created_at).fromNow()} */}
-              created_at
+              {moment(data?.created_at).fromNow()}
             </div>
           </div>
         </div>
@@ -99,42 +53,37 @@ function CommentResult() {
       </div>
       <div className="mt-2 p-1">
         <div className="mt-1">
-          <p dangerouslySetInnerHTML={{ __html: comments }} />
+          <p dangerouslySetInnerHTML={{ __html: data?.text }} />
         </div>
       </div>
       <div className="flex items-center text-grayTxt text-xs mt-3">
-        <div className="flex items-center text-sm border rounded-md">
-          {action.upvote ? (
-            <BsTriangleFill
-              size={28}
-              className="cursor-pointer bg-gray p-1 rounded-l-md"
-              color="green"
-              onClick={handleUpvote}
-            />
-          ) : (
-            <BsTriangle
-              size={28}
-              className="hover:text-white cursor-pointer hover:bg-green p-1 rounded-l-md"
-              onClick={handleUpvote}
-            />
-          )}
-          <span className="ml-1.5 mr-1 sm:mr-3 font-semibold">{vote}</span>
-          {action.downvote ? (
-            <BsTriangleFill
-              size={28}
-              className="cursor-pointer rotate-180 bg-gray p-1 rounded-l-md"
-              color="red"
-              onClick={handleDownvote}
-            />
-          ) : (
-            <BsTriangle
-              size={28}
-              className="rotate-180 hover:text-white cursor-pointer hover:bg-red p-1 ml-1.5 border-r-2"
-              onClick={handleDownvote}
-            />
-          )}
+        <VoteButtonLogic data={data} currentUsername={"redflavor12345"} />
+        <div
+          className="flex items-center ml-1 sm:ml-5 hover:bg-gray p-1 rounded-md cursor-pointer"
+          onClick={toggleComment}
+        >
+          <AnnotationIcon className="h-6 w-6 text-grayTxt font-medium" />
+          <span className="ml-1 sm:text-sm font-semibold">
+            {data?.num_comments}
+          </span>
         </div>
       </div>
+
+      {repliesActive ? (
+        <div>
+          <div className="my-3">
+            <NestedCreateReply
+              threadId={data?.thread_id}
+              parentId={data?._id}
+              replyUsername={data?.username}
+            />
+            <hr className="text-gray mt-3" />
+          </div>
+          <NestedReplies parentId={data?._id} threadId={data?.thread_id} />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

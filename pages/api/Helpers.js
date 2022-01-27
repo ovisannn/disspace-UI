@@ -79,3 +79,11 @@ export const GetModeratorsByCategoryID = (id) =>{
 export const GetThreadsByCategoryID = (id) =>{
   return `${Domain()}/v1/threads/category/${id}`
 }
+
+export const GetThreadByID = (threadId) => {
+  return `${Domain()}/v1/threads/${threadId}`
+}
+
+export const GetAllCommentInThread = (threadId, parentId) => {
+  return `${Domain()}/v1/threads/${threadId}/comment/${parentId}`
+}

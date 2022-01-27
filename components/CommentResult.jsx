@@ -20,14 +20,14 @@ function CommentResult({ data }) {
     <div className="bg-white shadow-md px-4 py-3 mt-3 rounded cursor-pointer max-w-2xl hover:drop-shadow-lg h-fit">
       <div className="flex justify-between">
         <div className="flex item-center align-middle">
-          <Image
+          {/* <Image
             className="rounded-full"
             height={39}
             width={39}
             layout="fixed"
             src={data?.user?.profile_pict}
             alt="user-profile"
-          />
+          /> */}
           <div className="ml-3">
             <div className="text-sm">
               <Link href={`user/${data?.user?.username}`}>

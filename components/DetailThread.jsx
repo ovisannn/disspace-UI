@@ -19,13 +19,17 @@ function DetailThread({ data }) {
     <div className="bg-white shadow-md px-4 py-3 mt-3 mx-2 md:mx-0 rounded cursor-pointer max-w-2xl hover:drop-shadow-lg h-fit">
       <div className="flex justify-between">
         <div className="flex items-center">
-          <Image
-            className="rounded-full"
-            height={48}
-            width={48}
-            src={data?.user?.profile_pict}
-            alt="user-profile"
-          />
+          {data?.user?.profile_pict ? (
+            <Image
+              className="rounded-full"
+              height={48}
+              width={48}
+              src={data?.user?.profile_pict}
+              alt="user-profile"
+            />
+          ) : (
+            ""
+          )}
           <div className="ml-3">
             <div className="text-sm">
               <Link href={`user/${data?.user?.username}`}>
@@ -54,8 +58,8 @@ function DetailThread({ data }) {
           {data?.title}
         </div>
         <div className="bg-gray flex justify-center my-5">
-          <div className="w-1/3 h-72 relative">
-            <Image src={data?.image_url} layout="fill" objectFit="fit"/>
+          <div className="w-full h-72 relative">
+            <Image src={data?.image_url} layout="fill" objectFit="fit" />
           </div>
         </div>
         <div

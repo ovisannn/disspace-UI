@@ -1,59 +1,64 @@
-import { useState, useEffect } from "react";
-import {
-  momodList,
-  dummyCategory,
-  topUser,
-  categoryList,
-  threadData,
-} from "../dummyData";
-import LeaderBoards from "../components/LeaderBoards";
-import CategoryList from "../components/CategoryList";
-import NavbarV2 from "../components/NavbarV2";
-import Thread from "../components/thread";
-import ThreadSelector from "../components/ThreadSelector";
-import Footer from "../components/Footer";
-import axios from "axios";
-import { GetCategoriesAPI, GetThreadAPI, GetLeaderboard } from "./api/Helpers";
+import { GetCategoriesAPI, GetCategoryByID, GetThreadsByCategoryID, GetModeratorsByCategoryID } from '../api/Helpers';
+import NavbarV2 from '../../components/NavbarV2';
+import AboutCategories from '../../components/AboutCategories'
+import CategoriesRules from '../../components/CategoriesRules'
+import ModeratorList from '../../components/ModeratorList'
+import Thread from "../../components/thread";
+import Footer from "../../components/Footer";
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-const option = [
-  { name: "recent", value: "created_at" },
-  { name: "most upvote", value: "num_votes" },
-  { name: "most commented", value: "num_comments" },
-];
 
-export default function Home() {
+
+ 
+export const getStaticPaths = async () =>{
+  const res = await fetch(GetCategoriesAPI())
+  const data = await res.json()
+  // console.log(data.data)
+  const paths = data.data.map(item =>{
+    return {
+      params:{id : item._id.toString()}
+    }
+  })
+
+  return{
+    paths,
+    fallback: false
+  }
+}
+
+export const getStaticProps = async (context) =>{ 
+    const id = context.params.id
+    const res = await fetch(GetCategoryByID(id))
+    const data = await res.json()
+    // console.log(data.data)
+    return {
+      props : {category : data.data}
+    }
+}
+
+const CategoryIndex = ({ category }) => {
   const [limit, setLimit] = useState(4);
   const [threadData, setThreadData] = useState();
-  const [catData, setCatData] = useState();
-  const [getLeaderboardData, setLeaderboard] = useState()
+  const [getModData, setModData] = useState();
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState(option[0]);
-  // const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [threadsData, categoriesData, leaderBoardData] = await Promise.all([
+        const [threadsData, modData] = await Promise.all([
           axios({
             method: "get",
-            url: GetThreadAPI(),
-            params: {
-              sort: selected.value,
-            },
-          }),
-          axios({
-            method: "get",
-            url: GetCategoriesAPI(),
+            url: GetThreadsByCategoryID(category._id),
           }),
           axios({
             method: 'get',
-            url : GetLeaderboard(),
+            url : GetModeratorsByCategoryID(category._id),
           })
         ]);
         setThreadData(threadsData?.data);
-        setCatData(categoriesData?.data);
-        setLeaderboard(leaderBoardData?.data)
+        setModData(modData)
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -61,11 +66,14 @@ export default function Home() {
       }
     };
     fetchData();
-  }, [selected]);
+  }, []);
 
-  return (
+  return (<div className=''>
     <div className="flex flex-col justify-center lg:items-center">
-      <NavbarV2 />
+        <NavbarV2 />  
+      <div className='h-14 md:h-28 w-screen md:w-screen' style={{overflow:'hidden'}}>
+        <img src={category?.header} layout='cover' style={{width: '100%'}} alt="" />
+      </div>
       {loading ? (
         <div className="flex items-center justify-center my-80 space-x-2 animate-bounce">
           <div className="w-5 h-5 bg-orange rounded-full"></div>
@@ -78,16 +86,6 @@ export default function Home() {
             <div className="flex flex-col md:flex-row my-8 gap-x-14">
               {/* thread */}
               <div className="">
-                <div className="flex flex-row justify-between">
-                  <div className="p-5">All threads</div>
-                  <div className="z-20 mt-1">
-                    <ThreadSelector
-                      option={option}
-                      selected={selected}
-                      setSelected={setSelected}
-                    />
-                  </div>
-                </div>
                 <div className="max-w-2xl">
                   {threadData?.data
                     ?.slice(0, limit != null ? limit : threadData?.length)
@@ -110,11 +108,14 @@ export default function Home() {
               {/* side content */}
               <div className="flex flex-col items-center my-8 md:my-0">
                 <div>
-                  <LeaderBoards topUsers={getLeaderboardData?.data} />
+                  <AboutCategories category={category} />
                 </div>
                 <div className="py-8">
-                  <CategoryList categories={catData?.data} />
+                  <CategoriesRules category={category} />
                 </div>
+                {/* <div className="py-8">
+                  <ModeratorList category={category} moderatorList={getModData.data} />
+                </div> */}
               </div>
             </div>
           </div>
@@ -125,5 +126,7 @@ export default function Home() {
         <Footer />
       </div>
     </div>
-  );
-}
+  </div>);
+};
+
+export default CategoryIndex;

@@ -6,6 +6,7 @@ module.exports = {
       "images.unsplash.com",
       "firebasestorage.googleapis.com",
       "static.wikia.nocookie.net",
+      "image.freepik.com",
     ],
   },
 };

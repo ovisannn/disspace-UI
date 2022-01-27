@@ -91,3 +91,7 @@ export const GetAllCommentInThread = (threadId, parentId) => {
 export const RegisterAPI = () => {
   return `${Domain()}/v1/user/register`;
 };
+
+export const DeleteCommentAPI = (username, commentId) => {
+  return `http://localhost:8080/v1/users/:id/comments/:comment_id`
+}

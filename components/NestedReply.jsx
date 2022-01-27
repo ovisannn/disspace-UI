@@ -1,16 +1,30 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BsDot, BsTriangle, BsTriangleFill, BsReply } from "react-icons/bs";
+import { BsReply } from "react-icons/bs";
 import moment from "moment";
 import NestedCreateReply from "./NestedCreateReply";
 import VoteButtonLogic from "./VoteButtonLogic";
+import { AiFillDelete } from "react-icons/ai";
+import { DeleteCommentAPI } from "../pages/api/Helpers";
 
 function NestedReply({ comment, replies, canReply }) {
   const [create, setCreate] = useState(false);
 
   const toggleComment = () => {
     setCreate(!create);
+  };
+
+  const handleDelete = async (e) => {
+    try {
+      const response = await axios({
+        method: "put",
+        url: DeleteCommentAPI(username, comment._id),
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -59,6 +73,19 @@ function NestedReply({ comment, replies, canReply }) {
           ) : (
             ""
           )}
+          {comment.username === currentUsername ? (
+            <div
+              className="flex items-center ml-1 sm:ml-5 hover:bg-gray p-1 rounded-md cursor-pointer"
+              onClick={handleDelete}
+            >
+              <AiFillDelete size={16} />
+              <span className="ml-0.5 mt-px sm:text-xs font-semibold">
+                Delete
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className="ml-7 mt-3">
           {create ? (
@@ -75,7 +102,12 @@ function NestedReply({ comment, replies, canReply }) {
         </div>
         <div>
           {replies.map((reply) => (
-            <NestedReply key={reply.id} comment={reply} replies={[]} canReply={false}/>
+            <NestedReply
+              key={reply.id}
+              comment={reply}
+              replies={[]}
+              canReply={false}
+            />
           ))}
         </div>
       </div>

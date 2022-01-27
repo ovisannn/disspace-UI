@@ -1,11 +1,4 @@
 import { useState, useEffect } from "react";
-import {
-  momodList,
-  dummyCategory,
-  topUser,
-  categoryList,
-  threadData,
-} from "../dummyData";
 import LeaderBoards from "../components/LeaderBoards";
 import CategoryList from "../components/CategoryList";
 import NavbarV2 from "../components/NavbarV2";

@@ -1,8 +1,8 @@
 // const Domain = "http://localhost:8080"
 
-export const Domain =()=>{
-  return "http://localhost:8080"
-}
+export const Domain = () => {
+  return "http://localhost:8080";
+};
 
 export const GetThreadAPI = () => {
   return `${Domain()}/v1/threads`;
@@ -56,34 +56,42 @@ export const GetUserReports = () => {
   return `${Domain()}/v1/reports/users`;
 };
 
-export const LoginAPI =() =>{
-  return `${Domain()}/v1/user/login`
-}
+export const LoginAPI = () => {
+  return `${Domain()}/v1/user/login`;
+};
 
-export const GetUserProfile = (username) =>{
-  return `${Domain()}/v1/userProfile/${username}`
-}
+export const GetUserProfile = (username) => {
+  return `${Domain()}/v1/userProfile/${username}`;
+};
 
-export const GetLeaderboard = () =>{
-  return `${Domain()}/v1/TopUser`
-}
+export const GetLeaderboard = () => {
+  return `${Domain()}/v1/TopUser`;
+};
 
-export const GetCategoryByID = (id) =>{
-  return `${Domain()}/v1/categories/${id}`
-}
+export const GetCategoryByID = (id) => {
+  return `${Domain()}/v1/categories/${id}`;
+};
 
-export const GetModeratorsByCategoryID = (id) =>{
-  return `${Domain()}/v1/moderators/${id}`
-}
+export const GetModeratorsByCategoryID = (id) => {
+  return `${Domain()}/v1/moderators/${id}`;
+};
 
-export const GetThreadsByCategoryID = (id) =>{
-  return `${Domain()}/v1/threads/category/${id}`
-}
+export const GetThreadsByCategoryID = (id) => {
+  return `${Domain()}/v1/threads/category/${id}`;
+};
 
 export const GetThreadByID = (threadId) => {
-  return `${Domain()}/v1/threads/${threadId}`
-}
+  return `${Domain()}/v1/threads/${threadId}`;
+};
 
 export const GetAllCommentInThread = (threadId, parentId) => {
-  return `${Domain()}/v1/threads/${threadId}/comment/${parentId}`
+  return `${Domain()}/v1/threads/${threadId}/comment/${parentId}`;
+};
+
+export const RegisterAPI = () => {
+  return `${Domain()}/v1/user/register`;
+};
+
+export const DeleteCommentAPI = (username, commentId) => {
+  return `http://localhost:8080/v1/users/:id/comments/:comment_id`
 }

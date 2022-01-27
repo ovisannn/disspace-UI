@@ -10,6 +10,7 @@ import { ReportTargetAPI } from "../pages/api/Helpers";
 
 function PopOver({ targetId, targetType }) {
   var username = "61bb011b631b46d08adc16ec";
+
   const handleReport = async (e) => {
     try {
       const response = await axios({
@@ -57,7 +58,7 @@ function PopOver({ targetId, targetType }) {
           </div>
         </Popover.Button>
 
-        <Popover.Panel className="absolute z-10 bg-white shadow-md px-2 rounded-md transform -translate-x-full left-5">
+        <Popover.Panel className="absolute z-99 bg-white shadow-md px-2 rounded-md transform -translate-x-full left-5">
           <div className="relative grid gap-1 my-1 ">
             {moreMenus?.map((item) => (
               <div

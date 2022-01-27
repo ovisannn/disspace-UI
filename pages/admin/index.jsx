@@ -1,12 +1,11 @@
 import React from "react";
-import Navbar from "../../components/navbar";
+import NavbarV2 from "../../components/NavbarV2";
 import Layout from "../../components/layout";
 import {
   HiOutlineClipboardList,
   HiOutlineUser,
   HiOutlineUserGroup,
 } from "react-icons/hi";
-import { RiFileListLine } from "react-icons/ri";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { Tab } from "@headlessui/react";
 import { Fragment } from "react";
@@ -14,10 +13,12 @@ import ReportList from "../../components/ReportList";
 import UserList from "../../components/UserList";
 import CommentReportList from "../../components/CommentReportList";
 import AdminDashboard from "../../components/AdminDashboard";
+import ThreadAdmin from "../../components/ThreadAdmin";
 
 function Admin() {
   return (
     <>
+      <NavbarV2 />
       <Tab.Group>
         <div className="fixed flex flex-col top-16 left-0 w-14 mt-1 hover:w-64 md:w-64 bg-white h-full transition-all duration-300 border-none z-10 shadow-md">
           <Tab.List>
@@ -95,7 +96,9 @@ function Admin() {
               {" "}
               <AdminDashboard />
             </Tab.Panel>
-            <Tab.Panel>Thread</Tab.Panel>
+            <Tab.Panel>
+              <ThreadAdmin />
+            </Tab.Panel>
             <Tab.Panel>
               <UserList />
             </Tab.Panel>
@@ -107,12 +110,3 @@ function Admin() {
 }
 
 export default Admin;
-
-Admin.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Navbar />
-      {page}
-    </Layout>
-  );
-};

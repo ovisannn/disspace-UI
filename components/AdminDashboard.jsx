@@ -23,7 +23,7 @@ function AdminDashboard() {
   return (
     <div>
       <Tab.Group>
-        <Tab.List className="p-1 rounded-md text-center min-w-fit mb-5 py-1 bg-white shadow-md mx-96">
+        <Tab.List className="p-1 rounded-md text-center min-w-fit mb-5 py-1 bg-white shadow-md mx-72">
           {Object.keys(categories).map((category) => (
             <Tab
               key={category}

@@ -5,12 +5,15 @@ import Thread from "../../components/thread";
 import Layout from "../../components/layout";
 import Navbar from "../../components/navbar";
 import UserResult from "../../components/UserResult";
+import CommentResult from "../../components/CommentResult";
+
 import {
   SearchCommentAPI,
   SearchThreadAPI,
   SearchUserAPI,
 } from "../api/Helpers";
 import { useRouter } from "next/router";
+import NavbarV2 from "../../components/NavbarV2";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -72,6 +75,8 @@ function Search() {
   });
 
   return (
+    <>
+    < NavbarV2 />
     <div className="flex justify-center ">
       <div className="w-full max-w-2xl px-2 py-8 sm:px-0">
         <Tab.Group>
@@ -122,9 +127,7 @@ function Search() {
                 {comments?.data
                   ?.slice(0, limit != null ? limit : commentsData?.length)
                   .map((comment) => (
-                    <>
-                      <div>{comment.text}</div>
-                    </>
+                    < CommentResult data={comment}/>
                   ))}
               </Tab.Panel>
               <Tab.Panel>
@@ -139,16 +142,8 @@ function Search() {
         </Tab.Group>
       </div>
     </div>
+    </>
   );
 }
 
 export default Search;
-
-Search.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <Navbar />
-      {page}
-    </Layout>
-  );
-};

@@ -35,7 +35,7 @@ function UserList() {
         </div>
       ) : (
         <div>
-          <div>
+          <div className="md:mx-32">
             <table className="table-auto bg-white shadow-md mt-2">
               <thead className="bg-gray">
                 <tr className="text-lg">

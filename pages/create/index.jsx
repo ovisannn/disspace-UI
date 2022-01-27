@@ -9,7 +9,8 @@ import Footer from "../../components/Footer";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { currentUser } from "../../dummyData";
-import { GetCategoriesAPI } from "../api/Helpers";
+import { GetCategoriesAPI, GetThreadAPI } from "../api/Helpers";
+import NavbarV2 from "../../components/NavbarV2";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -21,6 +22,7 @@ function upload() {
   const [cat, setCat] = useState("");
   const [preview, setPreview] = useState(null);
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const reference = useRef();
 
@@ -153,17 +155,24 @@ function upload() {
   }, [url]);
 
   const handleCreate = async (e) => {
+    setLoading(true)
     try {
-      const response = await axios.post("http://localhost:8080/v1/threads", {
-        title: state?.title,
-        content: content,
-        image_url: url,
-        category_id: cat,
-        user_id: currentUser?._id,
+      const response = await axios({
+        method: "post",
+        url: GetThreadAPI(),
+        data: {
+          title: state?.title,
+          content: content,
+          image_url: url,
+          category_id: cat,
+          username: currentUser?._id,
+        },
       });
       console.log(response);
+      setLoading(false)
     } catch (error) {
       console.log(error);
+      setLoading(false)
     }
   };
 
@@ -185,6 +194,7 @@ function upload() {
 
   return (
     <>
+      <NavbarV2 />
       <form
         className="h-auto grid grid-cols-9 lg:mb-40 mb-4"
         onSubmit={handleSubmit}
@@ -294,7 +304,14 @@ function upload() {
             className="bg-lightOrange hover:bg-orange text-white font-semibold py-2 rounded w-full mt-5 mb-1"
             onClick={handleSubmit}
           >
-            Post
+            {loading ? (
+              <span className="flex text-center items-center align-middle md:ml-16 ml-24">
+                <div class="spinner-border animate-spin w-6 h-6 border-4 rounded-full text-white border-t-lightTeal text-center mr-2" />
+                Uploading
+              </span>
+            ) : (
+              "Post"
+            )}
           </button>
         </div>
       </form>
